@@ -1,0 +1,11 @@
+.login_main{
+	padding-top: 15%;
+}
+img.left_img{
+	width: 36%;
+	margin-left: 50%;
+}
+form button[type=submit]{
+	margin-top: 10%;
+	width: 100%;
+}
