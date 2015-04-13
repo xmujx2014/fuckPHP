@@ -1,26 +1,37 @@
-{% extends "bases.html" %}
-{% block title %}USER{% endblock %}
-{% set csses=(
-'css/user_manage.css',
-) %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JUA|USER</title>
+	<include file="Template:lib" />
 
-{% block header %}
-	<h1><a href="#">Info</a></h1>
-	<h1><a href="#addPerson">AddPerson</a></h1>
-{% endblock %}
-{% block main %}
-	<label>{{str}}</label>
-	<div class="main"></div>
-{% endblock %}
-
-{% block script %}
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/user/user_manage.css">
+	<script src="__PUBLIC__/js/user/user_manage.js"></script>
+</head>
+<body>
+	<div class="row">
+		<header id="header">
+			<h1 class="logo"></h1>
+			<h1>
+				<a href="#">Info</a>
+			</h1>
+			<h1>
+				<a href="#addPerson">AddPerson</a>
+			</h1>
+		</header>
+		<article class="article">
+			<label></label>
+			<div class="main"></div>
+		</article>
+	</div>
+</body>
 	<script id="add_person" class="template" type="text/html">
-		<div class="add_person">
+		<div class="add_person" add-person-url="{:U('User/addPerson')}">
 			<div class="col-md-3">
 				<img src="" alt="">
 				<button class="upload">Upload...</button>
 			</div>
-		<!-- <form action="addPerson/" method="post"> -->
+		<form action="{:U('User/addPerson/')}" method="post">
 			<div class="col-md-8">
 				<div class="col-md-3">
 					<label>
@@ -103,7 +114,7 @@
 				</div>
 				<button type="submit">Submit</button>
 			</div>
-		<!-- </form> -->
+		</form>
 		</div>
 	</script>
 	<script type="text/html" class="template" id="person_info">
@@ -132,7 +143,4 @@
 			</table>
 		</div>
 	</script>
-{% endblock %}
-{% set scripts = (
-'js/user_manage.js',
-) %}
+</html>
