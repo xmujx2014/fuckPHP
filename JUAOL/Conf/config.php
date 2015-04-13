@@ -10,7 +10,7 @@ return array(
     'DB_USER'           => 'root',                                    // 用户名
     'DB_PWD'            => 'root',                                // 密码
     'DB_PORT'           => '3306',                                      // 端口
-    'DB_PREFIX'         => 'juaOL_',                                      // 数据库表前缀
+    'DB_PREFIX'         => 'jua_',                                      // 数据库表前缀
     /*其他配置*/
     'URL_HTML_SUFFIX'   =>'',                                           // 伪静态后缀名，默认为html
     /*自定义SESSION存储在数据库当中*/
@@ -19,14 +19,6 @@ return array(
 
     'TMPL_PARSE_STRING' =>array(
     	'__PUBLIC__'=>__ROOT__.'/'.APP_NAME.'/Resource',
-    	'__UPLOAD__'=>__ROOT__.'/'.APP_NAME.'/Uploads',
     	),
-    /*多语言设置*/
-    'LANG_SWITCH_ON'    =>true,                                         // 是否开启多语言，默认为关闭
-    'LANG_AUTO_DETECT'  =>true,                                         // 是否自动检测语言环境
-    'LANG_LIST'         =>'zh-cn,en-us',                                // 允许切换的语言列表 用逗号分隔
-    'DEFAULT_LANG'      =>'zh-cn',                                      // 默认语言包
-
-    'DB_BACKUP'         =>__ROOT__.'/'.APP_NAME,
 );
 ?>

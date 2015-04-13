@@ -16,7 +16,7 @@ h1.logo{
   margin-left: 15px !important;
   width: 50px;
   height: 50px;
-  background: url('/media/img/logo.png');
+  background: url('../img/logo.png');
   background-size: cover;
 }
 a {

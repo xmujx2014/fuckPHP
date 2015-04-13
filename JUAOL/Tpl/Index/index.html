@@ -15,4 +15,24 @@
 		<article class="article"></article>
 	</div>
 </body>
+	<script type="text/html" id="information" class="template">
+		<div class="col-md-12 login_main">
+			<div class="col-md-6">
+				<img class="left_img" src="__PUBLIC__/img/logo.png">
+			</div>
+			<div class="col-md-3">
+				<form action="{:U('login')}" method="post">
+					<label>
+						<span>UserName:</span>
+						<input type="text" name="username" class="form-control"></label>
+					<label>
+					<lable>
+						<span>PassWord:</span>
+						<input type="password" class="form-control" name="password">
+					</lable>
+					<button type="submit">Login</button>
+				</form>
+			</div>
+		</div>
+	</script>
 </html>
