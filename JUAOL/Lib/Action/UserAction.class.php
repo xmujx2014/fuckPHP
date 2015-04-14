@@ -7,14 +7,9 @@ class UserAction extends Action {
     	$this->assign($data)->display('user_manage');
     }
     public function addPerson(){
-    	// if(IS_POST)
-    	// {
-    	// 	$ajaxReturnData['code'] = 200;
-    	// 	$this->ajaxReturn($ajaxReturnData);
-    	// }
 
     	$person = D("Person");
-    	foreach($person->fields as $attr){
+    	foreach($person->getFields() as $attr){
     		// echo $attr;s
     		$tmp = $_POST[$attr];
     		if($tmp != NULL)

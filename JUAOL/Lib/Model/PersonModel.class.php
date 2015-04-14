@@ -2,7 +2,7 @@
 
 class PersonModel extends Model{
 
-	public $fields = array(
+	protected $fields = array(
 		'team',					//队名
 		'family_name',			//姓
 		'given_name',			//名
@@ -35,10 +35,9 @@ class PersonModel extends Model{
 		'_autoinc_'=>true,		//自动增长
 		'_pk'=>'id');
 
-	protected $_auto = array (
-		array('create_time', 'time', self::MODEL_INSERT, 'function'),
-		array('edit_time', 'date', self::MODEL_UPDATE, 'function', array('Y-m-d H:i:s')),
-		);
+	public function getFields(){
+		return $this->fields;
+	}
 	public function getPersonInfoList($filter = array()){
 		return $this->where($finalFilter)->order('id asc')->select();
 	}
