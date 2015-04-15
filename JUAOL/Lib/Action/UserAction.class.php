@@ -3,7 +3,26 @@
 class UserAction extends Action {
     public function index(){
     	$data['personInfo'] = D('Person')->getPersonInfoList();
-    	// dump($data['personInfo']);
+    	$data['team'] = session('user')['team'];
+    	$data['groupe'] = array(
+    		'Catering',
+    		'Competitor',
+    		'Judoka',
+    		'Coach',
+    		'Team-Official',
+    		'Referee',
+    		'Doctor',
+    		'Medic',
+    		'Physiotherapist',
+    		'President',
+    		'Vice-President',
+    		'General Secretary',
+    		'Delegate',
+    		'LJF Staff',
+    		'VIP',
+    		'VVIP',
+    		'Head of Organisation'
+    		);
     	$this->assign($data)->display('user_manage');
     }
     public function addPerson(){
@@ -27,5 +46,15 @@ class UserAction extends Action {
             // 字段验证错误
             $this->error($person->getError());
         }
+    }
+
+    public function getInfo(){
+    	if(IS_POST){
+    		$id = I('id');
+    		$ajaxReturnData['person'] = D("Person")->getInfoById($id);
+    		$ajaxReturnData['code'] = 200;
+
+    		$this->ajaxReturn($ajaxReturnData);
+    	}
     }
 }

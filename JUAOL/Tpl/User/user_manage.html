@@ -28,93 +28,97 @@
 	<script id="add_person" class="template" type="text/html">
 		<div class="add_person" add-person-url="{:U('User/addPerson')}">
 			<div class="col-md-3">
+				<input type="file">
 				<img src="" alt="">
 				<button class="upload">Upload...</button>
 			</div>
-		<form action="{:U('User/addPerson/')}" method="post">
-			<div class="col-md-8">
-				<div class="col-md-3">
-					<label>
-						<span>Team:</span>
-						<input type="text" name='team' class="form-control" disabled="disabled"></label>
-					<label>
-						<span>Family Name:</span>
-						<input type="text" name='family_name' class="form-control"></label>
-					<label>
-						<span>Given Name :</span>
-						<input type="text" name='given_name' class="form-control"></label>
-					<label>
-						<span>Simple :</span>
-						<input type="text" name='simple_name' class="form-control"></label>
+			<form action="{:U('User/addPerson/')}" method="post">
+				<div class="col-md-8">
+					<div class="col-md-3">
+						<label>
+							<span>Team:</span>
+							<input type="text" name='team' class="form-control" disabled="disabled" value="{$team}"></label>
+						<label>
+							<span>Family Name:</span>
+							<input type="text" name='family_name' class="form-control"></label>
+						<label>
+							<span>Given Name :</span>
+							<input type="text" name='given_name' class="form-control"></label>
+						<label>
+							<span>Simple :</span>
+							<input type="text" name='simple_name' class="form-control"></label>
+					</div>
+					<div class="col-md-4">
+						<label>
+							<span>Date of Birth :</span>
+							<input type="date" name='identity_num' class="form-control"></label>
+						<label>
+							<span>Gender :</span>
+							<select name="gender" class="form-control">
+								<option value="male">Male</option>
+								<option value="female">Female</option>
+							</select>
+						</label>
+						<label>
+							<span>Group :</span>
+							<select name="groupe" class="form-control">
+								<foreach name="groupe" item="group" key="num">
+									<option value="{$group}">{$group}</option>
+								</foreach>
+							</select>
+						</label>
+						<label>
+							<span>Category :</span>
+							<select name="category" class="form-control">
+								<option>hh</option>
+							</select>
+						</label>
+					</div>
+					<div class="col-md-5">
+						<label>
+							<span>Best Result :</span>
+							<input type="text" name='best_result' class="form-control"></label>
+						<label>
+						<label>
+							<span>Number of Officials :</span>
+							<input type="text" name='number_of_officials' class="form-control"></label>
+						<label>
+						<label>
+							<span>Number of Competitors:</span>
+							<input type="text" name='number_of_competitiors' class="form-control"></label>
+						<label>
+						<label>
+							<span>Federation :</span>
+							<input type="text" name='federation' class="form-control"></label>
+						<label>
+					</div>
+					<div class="col-md-4">
+						<label>
+							<span>Passport No. :</span>
+							<input type="text" name='passport_no' class="form-control"></label>
+						<label>
+					</div>
+					<div class="col-md-4">
+						<label>
+							<span>Tel. :</span>
+							<input type="text" name='tel' class="form-control"></label>
+						<label>
+					</div>
+					<div class="col-md-4">
+						<label>
+							<span>E-mail :</span>
+							<input type="text" name='email' class="form-control"></label>
+						<label>
+					</div>
+					<div class="col-md-12">
+						<label>
+							<span>Adress :</span>
+							<input type="text" name='adress' class="form-control"></label>
+						<label>
+					</div>
+					<button type="submit">Submit</button>
 				</div>
-				<div class="col-md-4">
-					<label>
-						<span>Date of Birth :</span>
-						<input type="date" name='identity_num' class="form-control"></label>
-					<label>
-						<span>Gender :</span>
-						<select name="gender" class="form-control">
-							<option>hh</option>
-						</select>
-					</label>
-					<label>
-						<span>Group :</span>
-						<select name="groupe" class="form-control">
-							<option>hh</option>
-						</select>
-					</label>
-					<label>
-						<span>Category :</span>
-						<select name="category" class="form-control">
-							<option>hh</option>
-						</select>
-					</label>
-				</div>
-				<div class="col-md-5">
-					<label>
-						<span>Best Result :</span>
-						<input type="text" name='identity_num' class="form-control"></label>
-					<label>
-					<label>
-						<span>Number of Officials :</span>
-						<input type="text" name='identity_num' class="form-control"></label>
-					<label>
-					<label>
-						<span>Number of Competitors:</span>
-						<input type="text" name='identity_num' class="form-control"></label>
-					<label>
-					<label>
-						<span>Federation :</span>
-						<input type="text" name='identity_num' class="form-control"></label>
-					<label>
-				</div>
-				<div class="col-md-4">
-					<label>
-						<span>Passport No. :</span>
-						<input type="text" name='identity_num' class="form-control"></label>
-					<label>
-				</div>
-				<div class="col-md-4">
-					<label>
-						<span>Tel. :</span>
-						<input type="text" name='identity_num' class="form-control"></label>
-					<label>
-				</div>
-				<div class="col-md-4">
-					<label>
-						<span>E-mail :</span>
-						<input type="text" name='identity_num' class="form-control"></label>
-					<label>
-				</div>
-				<div class="col-md-12">
-					<label>
-						<span>Adress :</span>
-						<input type="text" name='identity_num' class="form-control"></label>
-					<label>
-				</div>
-				<button type="submit">Submit</button>
-			</div>
-		</form>
+			</form>
 		</div>
 	</script>
 	<script type="text/html" class="template" id="person_info">
@@ -125,20 +129,22 @@
 						<th>Role</th>
 						<th></th>
 						<th>Full Name</th>
+						<th>Birth</th>
 						<th>Gender</th>
 						<th>Edit</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for person in personList %}
-					<tr data-id="{{person.id}}">
-						<td>{{person.team}}</td>
-						<td><img class="person_img"></img></td>
-						<td>{{person.family_name}} {{person.given_name}}</td>
-						<td>{{person.gender}}</td>
-						<td><a class="edit" href="javascript:void(0)"><span class="glyphicon glyphicon-edit"></span></a></td>
-					</tr>
-					{% endfor %}
+					<foreach name="personInfo" item="person" key="num">
+						<tr data-id="{$person.id}" data-url="{:U('/User/getInfo')}">
+							<td>{$person.groupe}</td>
+							<td><img class="person_img"></img></td>
+							<td>{$person.family_name} {$person.given_name}</td>
+							<td>{$person.birth}</td>
+							<td>{$person.gender}</td>
+							<td><a class="edit" href="javascript:void(0)"><span class="glyphicon glyphicon-edit"></span></a></td>
+						</tr>
+					</foreach>
 				</tbody>
 			</table>
 		</div>

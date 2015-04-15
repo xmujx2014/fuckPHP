@@ -21,3 +21,6 @@ button[type=submit]{
 div.person_info{
 	margin-left: 8%;
 }
+input[type=file]{
+	display: none !important;
+} 

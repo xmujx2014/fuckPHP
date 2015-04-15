@@ -41,6 +41,11 @@ class PersonModel extends Model{
 	public function getPersonInfoList($filter = array()){
 		return $this->where($finalFilter)->order('id asc')->select();
 	}
+	
+	public function getInfoById($id){
+		$person = $this->where(array('id'=>$id))->find();
+		return $person;
+	}
 
 	public function addPerson($data){
 		$data['create_time'] = date('Y-m-d H:i:s');
@@ -58,5 +63,6 @@ class PersonModel extends Model{
 	{
 		$this->delete($data['id']);
 	}
+
 
 }

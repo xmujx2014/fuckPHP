@@ -8,6 +8,8 @@ class IndexAction extends Action {
     	$username = $_POST['username'];
     	$passwd = $_POST['passwd'];
 
+    	session(array('name'=>'session_id','expire'=>8888));
+
     	$power = D('User')->loginValidate($username, $passwd);
     	// dump($power);die;
     	if(!$power)

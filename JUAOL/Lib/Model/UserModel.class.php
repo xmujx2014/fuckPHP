@@ -16,6 +16,7 @@ class UserModel extends Model{
 
 	public function loginValidate($username = '', $passwd = ''){
 		$user = $this->where(array('username'=>$username))->find();
+		session('user', $user);
 		// dump($passwd);
 		// dump(md5($passwd));die;
 		if($user !== NULL && $user['passwd'] == md5($passwd)){
@@ -23,5 +24,6 @@ class UserModel extends Model{
 		}
 		return 2;
 	}
+
 
 }
