@@ -64,5 +64,18 @@ class PersonModel extends Model{
 		$this->delete($data['id']);
 	}
 
+	public function getImgUrls(){
+		$data = $this->field(array('img_url'))->select();
+		$result = array();
+		$tmp = '';
+
+		foreach ($data as $key => $value) {
+			$tmp = explode('juaOL/JUAOL/Resource/img/person_img/', $value['img_url'])[1];
+			$tmp != NULL ? array_push($result, $tmp) : '';
+		}
+		// dump($result);die;
+		return $result;
+	}
+
 
 }

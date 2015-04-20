@@ -5,8 +5,8 @@
 	padding-left: 29%;
 }*/
 div.add_person img{
-	width: 180px;
-	height: 260px;
+	width: 210px;
+	height: 270px;
 	margin-left: 20%;
 	margin-top: 20%;
 }
@@ -14,13 +14,20 @@ button.upload{
 	width: 180px;
 	margin-left: 20%;
 }
-button[type=submit]{
+form.personInfo button[type=submit]{
 	width: 50%;
 	margin-left: 25%;
 }
 div.person_info{
 	margin-left: 8%;
 }
+form.personInfo img{
+	font-size: 40px Impact;
+	text-align: center;
+}
 input[type=file]{
 	display: none !important;
-} 
+}
+.success{
+	color: green;
+}
