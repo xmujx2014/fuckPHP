@@ -5,10 +5,10 @@
  */
 return array(
 	/* 数据库配置 */
-    'DB_HOST'           => '172.27.1.226',                            // 服务器地址
-    'DB_NAME'           => 'juaOL_PHP',                                       // 数据库名
+    'DB_HOST'           => '103.249.252.165',                            // 服务器地址
+    'DB_NAME'           => 'juaOL',                                       // 数据库名
     'DB_USER'           => 'root',                                    // 用户名
-    'DB_PWD'            => 'root',                                // 密码
+    'DB_PWD'            => 'jiangxian',                                // 密码
     'DB_PORT'           => '3306',                                      // 端口
     'DB_PREFIX'         => 'jua_',                                      // 数据库表前缀
     /*其他配置*/

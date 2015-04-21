@@ -20,6 +20,7 @@ form.personInfo button[type=submit]{
 }
 div.person_info{
 	margin-left: 8%;
+	margin-top: 4%;
 }
 form.personInfo img{
 	font-size: 40px Impact;

@@ -33,17 +33,17 @@ var AddPersonView = Backbone.View.extend({
 						$addPerson.find("input[name=" + tmp + "]").val(data['person'][tmp])
 					}
 					$("select[name=groupe] option").each(function(){
-						d($(this).val())
+						// d($(this).val())
 						if($(this).val() == data['person']['groupe'])
 							$(this).attr("selected", "")
 					})
 					$("select[name=gender] option").each(function(){
-						d($(this).val())
+						// d($(this).val())
 						if($(this).val() == data['person']['gender'])
 							$(this).attr("selected", "")
 					})
 					$("select[name=category] option").each(function(){
-						d($(this).val())
+						// d($(this).val())
 						if($(this).val() == data['person']['category'])
 							$(this).attr("selected", "")
 					})

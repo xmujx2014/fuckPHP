@@ -6,6 +6,7 @@ class UserAction extends Action {
     public function index(){
     	$data['personInfo'] = D('Person')->getPersonInfoList();
     	$data['team'] = session('user')['team'];
+        $data['username'] = session('user')['username'];
     	$data['groupe'] = array(
     		'Catering',
     		'Competitor',
