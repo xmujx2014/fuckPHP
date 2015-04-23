@@ -3,16 +3,25 @@
 <head>
 	<meta charset="UTF-8">
 	<title>JUA|ADMIN</title>
+	<include file="Template:lib" />
 
-	<link href="__PUBLIC__/css/commen.css" type="text/css" rel="stylesheet" charset="utf-8"></head>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/admin.css">
+	<script src="__PUBLIC__/js/admin/admin_main.js"></script>
 <body>
 	<header id="header">
 		<img src="__PUBLIC__/img/logo.png" class="back-logo">
-		<h1>JUA</h1>
+		<h1 class="logo"></h1>
+		<h1><a href="#">EventList</a></h1>
 		<div align="right">
-			<a id="admin" href="#">Admin</a>
+			<a href="#passwdChange">Admin</a>
+			<a href="{:U('/Index/logout')}">Logout</a>
 		</div>
 	</header>
-
+	<article class="article">
+		<label></label>
+		<div class="main"></div>
+	</article>
 </body>
+	<include file="User:passwd_change"/>
+	<include file="event_list"/>
 </html>

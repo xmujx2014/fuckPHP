@@ -6,8 +6,7 @@ class UserAction extends Action {
     public function index(){
         if(session('user') != null){
         	$data['personInfo'] = D('Person')->getPersonInfoList();
-        	$data['team'] = session('user')['team'];
-            $data['username'] = session('user')['username'];
+        	$data['user'] = D('User')->getCurrentUserInfo();
         	$data['groupe'] = array(
         		'Catering',
         		'Competitor',
@@ -27,7 +26,7 @@ class UserAction extends Action {
         		'VVIP',
         		'Head of Organisation'
         		);
-        	$this->assign($data)->display('user_manage');
+        	$this->assign($data)->display('user_main');
         }
         else{
             $this->error("请登录后在进行操作！");
@@ -65,7 +64,7 @@ class UserAction extends Action {
     		// $person->create();
     		// dump($data);die;
     		
-    		if($data['id'] == ''){
+    		if($data['id'] == NULL){
                 if (false !== $person->addPerson($data)) {
                     $this->success('数据添加成功！');
                 } else {
@@ -100,4 +99,36 @@ class UserAction extends Action {
     	D('Person')->getImgUrls();
     	$this->success("图片清理成功");
     }
+
+    public function accountInfo(){
+        $user = D("User");
+
+        foreach($user->getFields() as $attr){
+            // echo $attr;s
+            $tmp = $_POST[$attr];
+            if($tmp != NULL)
+                $data[$attr] = $_POST[$attr];
+        }
+        if (false !== $user->updateUser($data)) {
+            $this->success('数据更新成功！');
+        } else {
+            $this->error('数据写入错误');
+        }
+    }
+
+    public function passwdChange(){
+        $oldPasswd = $_POST['oldPasswd'];
+        if(D('User')->loginValidate(session('user')['username'], $oldPasswd) != 2){
+            $user = D('User');
+            $data['passwd'] = md5($_POST['newPasswd']);
+            if($user->updateUser($data)){
+                $this->success("密码更改成功！");
+            }
+            else
+                $this->error("密码更新失败!");
+        }
+        else
+            $this->error('请输入正确的密码!');
+    }
+
 }

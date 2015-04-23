@@ -14,6 +14,7 @@ h1{
 }
 h1.logo{
   /*margin-left: 15px !important;*/
+  href: #;
   width: 50px;
   height: 50px;
   background: url('../img/logo.png');
@@ -24,11 +25,18 @@ img.back-logo{
     opacity: 0.06;
     width: 50%;
     margin: 5% 25% 0;
+    z-index: 0;
 }
 a {
   color: #363636;
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
+}
+a:link{
+  text-decoration: none;
+}
+a:hover{
+  color: #0082e5;
 }
 pre {
   margin: 0;
@@ -191,4 +199,21 @@ header a{
   display: -moz-box;
   -moz-box-orient: vertical;
   -moz-box-align: stretch;
+}
+
+/*
+==================
+ */
+
+.passwd-change button[type=submit]{
+  margin-left: 25%;
+  width: 75%;
+}
+.passwd-change{
+  margin: 10% 25%;
+}
+.passwd-change label.error{
+  color: red;
+  margin-left: 25%;
+  margin-bottom: 2%;
 }

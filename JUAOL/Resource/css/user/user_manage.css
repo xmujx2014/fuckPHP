@@ -5,13 +5,17 @@ div.add_person img{
 	width: 210px;
 	height: 270px;
 	margin-left: 20%;
-	margin-top: 20%;
+	margin-top: 6%;
 }
 button.upload{
 	width: 180px;
 	margin-left: 20%;
 }
 form.personInfo button[type=submit]{
+	width: 50%;
+	margin-left: 25%;
+}
+form.accountInfo button[type=submit]{
 	width: 50%;
 	margin-left: 25%;
 }
@@ -28,4 +32,14 @@ input[type=file]{
 }
 .success{
 	color: green;
+}
+
+/*
+==================
+ */
+div.account_info div.check-box{
+	padding-left: 2.6%;
+}
+div.account_info table{
+	text-align: center;
 }

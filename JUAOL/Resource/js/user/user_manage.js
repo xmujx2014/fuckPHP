@@ -1,5 +1,10 @@
 var PersonModel = Backbone.Model
 
+var AccountView = Backbone.View.extend({
+	render: function(){
+		$(this.el).html($.tpl['account_info']())
+	}
+})
 var AddPersonView = Backbone.View.extend({
 	events:{
 		"click div.add_person img[name=img_url]": "chooseImg",
@@ -60,7 +65,7 @@ var AddPersonView = Backbone.View.extend({
 });
 var UserInfo = Backbone.View.extend({
 	render: function(){
-		$(this.el).html($.tpl['person_info']())
+		$(this.el).html($.tpl['person_list']())
 		$(".person_info table a.edit").click(function(){
 			$tr = $(this).parent().parent()
 			var id = $tr.attr("data-id")
@@ -69,12 +74,34 @@ var UserInfo = Backbone.View.extend({
 		});
 	},
 });
+var PasswdChangeView = Backbone.View.extend({
+	render: function(){
+		$(this.el).html($.tpl['passwd_change']())
+		$(".passwd-change input[name=confirmPasswd]").change(function(){
+			newPasswd = $(".passwd-change input[name=newPasswd]").val()
+			if($(this).val() != newPasswd){
+				$(".passwd-change label.error").show();
+			}
+			else{
+				$(".passwd-change label.error").hide();
+			}
+		})
+	},
+});
 
 var AppRouter = Backbone.Router.extend({
 	routes:{
 		"": "userInfo",
 		"addPerson": "addPerson",
-		"addPerson/:id": "addPerson"
+		"addPerson/:id": "addPerson",
+		"accountInfo": "accountInfo",
+		"passwdChange": "passwdChange",
+	},
+	accountInfo: function(){
+		var accountInfoView = new AccountView({
+			el: $("div.main")
+		})
+		accountInfoView.render()
 	},
 	userInfo: function(){
 		var userInfoView = new UserInfo({
@@ -88,6 +115,12 @@ var AppRouter = Backbone.Router.extend({
 		})
 		addPersonView.render()
 		addPersonView.showPersonInfo(id)
+	},
+	passwdChange: function(){
+		var passwdChangeView = new PasswdChangeView({
+			el: $("div.main")
+		})
+		passwdChangeView.render()
 	}
 });
 
