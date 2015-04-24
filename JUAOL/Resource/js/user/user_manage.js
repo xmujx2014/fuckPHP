@@ -80,11 +80,17 @@ var PasswdChangeView = Backbone.View.extend({
 		$(".passwd-change input[name=confirmPasswd]").change(function(){
 			newPasswd = $(".passwd-change input[name=newPasswd]").val()
 			if($(this).val() != newPasswd){
-				$(".passwd-change label.error").show();
+				$(".passwd-change label.error").show()
+				$(".passwd-change button").attr("disabled", true)
 			}
 			else{
-				$(".passwd-change label.error").hide();
+				$(".passwd-change label.error").hide()
+				$(".passwd-change button").attr("disabled", false)
 			}
+		})
+		$(".passwd-change input[name=newPasswd]").change(function(){
+			if($(this).val() != '')
+				$(".passwd-change button").attr("disabled", false)
 		})
 	},
 });

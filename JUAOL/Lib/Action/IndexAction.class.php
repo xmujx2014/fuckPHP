@@ -3,7 +3,10 @@
 class IndexAction extends Action {
     public function index(){
         $data['username'] = session('username');
-        session('user', null);
+        if(session('error'))
+            $data['error'] = "ERROR: username or password is wrong.";
+        session(null);
+        session('username', $data['username']);
     	$this->assign($data)->show();
     }
     public function login(){
@@ -15,10 +18,14 @@ class IndexAction extends Action {
 
     	$power = D('User')->loginValidate($username, $passwd);
     	// dump($power);die;
-    	if(!$power)
+    	if($power == 1)
     		$this->redirect('User/index');
-    	else if($power == 1)
+    	else if($power == 0)
     		$this->redirect('Admin/index');
+        else if ($power == 2) {
+            # code...
+        }
+        session('error', true);
     	$this->redirect('Index/index');
     }
 

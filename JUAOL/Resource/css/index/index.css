@@ -9,3 +9,7 @@ form button[type=submit]{
 	margin-top: 10%;
 	width: 100%;
 }
+label.error{
+	color: red;
+	padding-top: 10%;
+}

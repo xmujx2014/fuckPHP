@@ -23,7 +23,7 @@ class UserModel extends Model{
 		);
 
 	public function loginValidate($username = '', $passwd = ''){
-		$user = $this->where(array('username'=>$username))->find();
+		$user = $this->field(array('id', 'username', 'passwd', 'power'))->where(array('username'=>$username))->find();
 		
 		// dump($passwd);
 		// dump(md5($passwd));die;
@@ -33,7 +33,7 @@ class UserModel extends Model{
 			session('user', $data);
 			return $user['power'];
 		}
-		return 2;
+		return -1;
 	}
 
 	public function getFields(){
@@ -51,5 +51,10 @@ class UserModel extends Model{
 		unset($user['passwd']);
 		unset($user['power']);
 		return $user;
+	}
+
+	public function getConfirmUsers($filter = array()){
+		$users = $this->where($filter)->field(array('id', 'username', 'federation', 'tel', 'email'))->where(array('power'=>2))->select();
+		return $users;
 	}
 }

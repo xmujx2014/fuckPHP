@@ -29,7 +29,7 @@ class UserAction extends Action {
         	$this->assign($data)->display('user_main');
         }
         else{
-            $this->error("请登录后在进行操作！");
+            $this->error("Please Login！");
         }
     }
     public function addPerson(){
@@ -66,21 +66,21 @@ class UserAction extends Action {
     		
     		if($data['id'] == NULL){
                 if (false !== $person->addPerson($data)) {
-                    $this->success('数据添加成功！');
+                    $this->success('Data insert success!');
                 } else {
-                    $this->error('数据写入错误');
+                    $this->error('Data insert error! Please try again!');
                 }
     	    }
     	    else{
     	    	if (false !== $person->updatePerson($data)) {
-                    $this->success('数据更新成功！');
+                    $this->success('Data update success!');
                 } else {
-                    $this->error('数据写入错误');
+                    $this->error('Data updata error! Please try again!');
                 }
     	    }
         }
         else{
-            $this->error("请登录后在进行操作！");
+            $this->error("Please Login!");
         }
         
     }
@@ -110,9 +110,9 @@ class UserAction extends Action {
                 $data[$attr] = $_POST[$attr];
         }
         if (false !== $user->updateUser($data)) {
-            $this->success('数据更新成功！');
+            $this->success('Data update success!');
         } else {
-            $this->error('数据写入错误');
+            $this->error('Data updata error! Please try again!');
         }
     }
 
@@ -122,13 +122,34 @@ class UserAction extends Action {
             $user = D('User');
             $data['passwd'] = md5($_POST['newPasswd']);
             if($user->updateUser($data)){
-                $this->success("密码更改成功！");
+                $this->success("Password change success!");
             }
             else
-                $this->error("密码更新失败!");
+                $this->error("Password change faild! Please try again!");
         }
         else
-            $this->error('请输入正确的密码!');
+            $this->error('You password is wrong! Please input you correct password!');
+    }
+
+    public function userConfirm(){
+        if(IS_POST){
+            $id = I('id');
+            $operate = I('operate');
+
+            $data['code'] = 200;
+            $data['ret'] = '';
+
+            $user['id'] = $id;
+            if($operate == 'ok'){
+                $user['power'] = 1;
+                D('User')->save($user);
+            }
+            else if($operate == 'remove'){
+                D('User')->where('id='.$id)->delete();
+            }
+            $data['code'] = 404;
+            $this->ajaxReturn($data);
+        }
     }
 
 }
