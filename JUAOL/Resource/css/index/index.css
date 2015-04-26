@@ -13,3 +13,12 @@ label.error{
 	color: red;
 	padding-top: 10%;
 }
+div.register{
+	margin-left: 25%;
+	margin-top: 2%;
+}
+div.register button{
+	margin-left: 25%;
+	width: 50%;
+	margin-top: 0;
+}

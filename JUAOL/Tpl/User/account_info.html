@@ -30,7 +30,9 @@
 					<label>
 						<span>Event:</span>
 						<select name="eventName" class="form-control" data="{$user.eventName}">
-							<option value="1">hh</option>
+							<foreach name="eventName" item="event" key="num">
+								<option value="{$event.id}">{$event.name}</option>
+							</foreach>
 						</select>
 					</label>
 				</div>

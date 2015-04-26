@@ -11,7 +11,10 @@
 <body>
 	<div class="row container-fluid">
 		<header id="header">
-			<h1 class="logo"></h1>
+			<h1 class="logo"><a href="#"></a></h1>
+			<div align="right">
+				<a href="#register">Register</a>
+			</div>
 		</header>
 		<article class="article"></article>
 	</div>
@@ -36,6 +39,60 @@
 					<label class="error">{$error}</label>
 				</form>
 			</div>
+		</div>
+	</script>
+	<script id="register" class="template" type="text/html">
+		<div class="register col-xs-6">
+			<form action="{:U('User/register/')}" method="post" class="register-form">
+				<div class="col-xs-12">
+					<label>
+						<span>UserName :</span>
+						<input type="text" name='username' class="form-control" placeholder="Login with username"></label>
+					<label>
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>PassWord:</span>
+						<input type="password" name='passwd' class="form-control" value="" placeholder=""></label>
+					<label>
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>Confirm PassWord :</span>
+						<input type="password" name='confirmPasswd' class="form-control" value="" placeholder="same with password"></label>
+					<label>
+				</div>
+				<div class="col-xs-12">
+					<label>
+						<span>Federation :</span>
+						<input type="text" name='federation' class="form-control" value="" placeholder="It will be you team name."></label>
+					<label>
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>Tel :</span>
+						<input type="text" name='tel' class="form-control" value=""></label>
+					</label>
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>E-mail :</span>
+						<input type="text" name='email' class="form-control" value="" placeholder=""></label>
+					</label>
+				</div>
+				<div class="col-xs-12">
+					<label>
+						<span>Event:</span>
+						<select name="eventName" class="form-control" data="{$user.eventName}">
+							<foreach name="eventName" item="event" key="num">
+								<option value="{$event.id}">{$event.name}</option>
+							</foreach>
+						</select>
+					</label>
+				</div>
+				<input type="text" name="id" hidden>
+				<button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+			</form>
 		</div>
 	</script>
 </html>

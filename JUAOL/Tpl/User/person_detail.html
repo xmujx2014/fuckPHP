@@ -65,7 +65,14 @@
 							<label>
 								<span>Category :</span>
 								<select name="category" class="form-control">
-									<option>hh</option>
+									<option disabled="disabled">---Male---</option>
+									<foreach name="mCat" item="cat" key="num">
+										<option value="{$cat}">{$cat}</option>
+									</foreach>
+									<option disabled="disabled">---Femail---</option>
+									<foreach name="fCat" item="cat" key="num">
+										<option value="{$cat}">{$cat}</option>
+									</foreach>
 								</select>
 							</label>
 						</div>

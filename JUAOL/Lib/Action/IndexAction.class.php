@@ -3,6 +3,7 @@
 class IndexAction extends Action {
     public function index(){
         $data['username'] = session('username');
+        $data['eventName'] = D('Event')->getEventNames();
         if(session('error'))
             $data['error'] = "ERROR: username or password is wrong.";
         session(null);

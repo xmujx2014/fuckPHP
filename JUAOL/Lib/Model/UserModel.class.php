@@ -18,6 +18,7 @@ class UserModel extends Model{
 		'fax',
 		'men_team',
 		'women_team',
+		'create_date',
 		'_autoinc_'=>true,
 		'_pk'=>'id'
 		);
@@ -46,6 +47,14 @@ class UserModel extends Model{
 		return $this->save($data);
 	}
 
+	public function addUser($data){
+		$data['passwd'] = md5($data['passwd']);
+		$data['create_date'] = date('Y-m-d H:i:s');
+		// dump($data);die;
+
+		return $this->add($data);
+	}
+
 	public function getCurrentUserInfo(){
 		$user = $this->where(array('id'=>session('user')['id']))->find();
 		unset($user['passwd']);
@@ -54,7 +63,7 @@ class UserModel extends Model{
 	}
 
 	public function getConfirmUsers($filter = array()){
-		$users = $this->where($filter)->field(array('id', 'username', 'federation', 'tel', 'email'))->where(array('power'=>2))->select();
+		$users = $this->where($filter)->field(array('id', 'username', 'federation', 'tel', 'email', 'create_date'))->where(array('power'=>2))->select();
 		return $users;
 	}
 }

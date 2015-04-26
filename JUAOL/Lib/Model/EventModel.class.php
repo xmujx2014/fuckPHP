@@ -4,6 +4,7 @@ class EventModel extends Model{
 
 
 	protected $fields = array(
+		'name',
 		'organizer',
 		'hosted_by',
 		'date',
@@ -30,5 +31,31 @@ class EventModel extends Model{
 	}
 	public function getEventByFilter($filter = array()){
 		return $this->where($filter)->find();
+	}
+
+	public function getMCat($id){
+		return $this->handleCat($this->field(array('mcate'))->where(array('id'=>$id))->find()['mcate']);
+	}
+	public function getFCat($id){
+		return $this->handleCat($this->field(array('fcate'))->where(array('id'=>$id))->find()['fcate']);
+	}
+
+	public function getEventList(){
+		$events = $this->select();
+		foreach ($events as $key => $value) {
+			$events[$key]['mcate'] = explode(',', $value['mcate']);
+			$events[$key]['fcate'] = explode(',' ,$value['fcate']);
+		}
+		return $events;
+	}
+	public function getEventNames(){
+		return $this->field(array('id' ,'name'))->select();
+	}
+
+	private function handleCat($cat){
+		// dump($cat);
+		if($cat == NULL || $cat == "")
+			return NULL;
+		return explode(',', $cat);
 	}
 }

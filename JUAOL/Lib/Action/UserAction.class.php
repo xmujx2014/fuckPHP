@@ -26,6 +26,10 @@ class UserAction extends Action {
         		'VVIP',
         		'Head of Organisation'
         		);
+            $data['eventName'] = D('Event')->getEventNames();
+            $data['mCat'] = D('Event')->getMCat($data['user']['eventName']);
+            $data['fCat'] = D('Event')->getFCat($data['user']['eventName']);
+            // dump($data);
         	$this->assign($data)->display('user_main');
         }
         else{
@@ -149,6 +153,21 @@ class UserAction extends Action {
             }
             $data['code'] = 404;
             $this->ajaxReturn($data);
+        }
+    }
+
+    public function register(){
+        $user = D("User");
+
+        foreach($user->getFields() as $attr){
+            $tmp = $_POST[$attr];
+            if($tmp != NULL)
+                $data[$attr] = $_POST[$attr];
+        }
+        if (false !== $user->addUser($data)) {
+            $this->success('Data update success!');
+        } else {
+            $this->error('Data updata error! Please try again!');
         }
     }
 

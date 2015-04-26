@@ -3,6 +3,10 @@ var PersonModel = Backbone.Model
 var AccountView = Backbone.View.extend({
 	render: function(){
 		$(this.el).html($.tpl['account_info']())
+		$(".account_info select[name=eventName] option").each(function(){
+			if($(this).val() == $(this).parent().attr("data"))
+				$(this).attr("selected", true)
+		})
 	}
 })
 var AddPersonView = Backbone.View.extend({
@@ -136,7 +140,7 @@ var AppRouter = Backbone.Router.extend({
 		personInfo = new Array('family_name','given_name',
 			'simple_name','identity_num','best_result','number_of_officials',
 			'number_of_competitiors','federation','passport_no',
-			'tel','email','adress')
+			'tel','email','adress','birth')
 
 		app = new AppRouter()
 		Backbone.history.start()		

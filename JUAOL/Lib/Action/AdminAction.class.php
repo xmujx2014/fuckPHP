@@ -2,7 +2,7 @@
 class AdminAction extends Action {
     public function index(){
     	if(session('user') != null){
-    		$data['events'] = D('Event')->getEvents();
+    		$data['events'] = D('Event')->getEventList();
     		$data['users'] = D('User')->getConfirmUsers();
     		// dump($data['users']);
     		$this->assign($data)->display('admin_main');

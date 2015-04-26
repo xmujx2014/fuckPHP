@@ -3,18 +3,22 @@
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
+					<th>Username</th>
 					<th>Federation</th>
 					<th>Email</th>
 					<th>Tel</th>
+					<th>Apply Date</th>
 					<th>Operate</th>
 				</tr>
 			</thead>
 			<tbody>
 				<foreach name="users" item="user" key="num">
 					<tr data-id="{$user.id}" data-url="{:U('/User/userConfirm')}">
+						<td>{$user.username}</td>
 						<td>{$user.federation}</td>
 						<td>{$user.email}</td>
 						<td>{$user.tel}</td>
+						<td>{$user.create_date}</td>
 						<td>
 							<a class="ok" operate="ok" href="javascript:void(0)">
 								<span class="glyphicon glyphicon-ok"></span>
