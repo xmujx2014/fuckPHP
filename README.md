@@ -1,5 +1,7 @@
 ﻿##JUST A STUDY PROJECT
 *2015-04-12 first commit
+##项目名称修改
+*项目拿下去后是以fuckphp的文件夹，将fuckphp修改为juaOL（虽然Apache是不区分大小写的，但统一还是为juaOL）
 ##忽略文件的一般规则
 * .a       # 忽略所有 .a 结尾的文件
 * !lib.a    # 但 lib.a 除外
