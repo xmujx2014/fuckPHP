@@ -37,14 +37,12 @@ var UserConfirmView = Backbone.View.extend({
 			data['id'] = $tr.attr("data-id")
 			data['operate'] = operate
 			url = $tr.attr("data-url")
-			d(data)
 			$.ajax({
 				url: url,
 				data: data,
 				'type': 'post',
 				'data-type': 'json',
 				success: function(data){
-					d(data)
 					if(data.code = 200){
 						$tr.hide()
 					}
@@ -66,7 +64,6 @@ var AddEventView = Backbone.View.extend({
 			data: {id: id},
 			'data-type': 'json',
 			success: function(data){
-				d(data)
 				if(data['code'] == 200){
 					for(var num in data['fields']){
 						tmp = data['fields'][num]

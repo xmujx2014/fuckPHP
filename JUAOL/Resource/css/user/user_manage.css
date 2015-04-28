@@ -43,3 +43,9 @@ div.account_info div.check-box{
 div.account_info table{
 	text-align: center;
 }
+table th{
+	text-align: center;
+}
+div.account_info .cat{
+	width: 81px;
+}

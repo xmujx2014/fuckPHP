@@ -1,5 +1,5 @@
 <?php
-
+// header("Content-Type:text/html; charset=UTF-8");
 class UserModel extends Model{
 
 
@@ -26,8 +26,6 @@ class UserModel extends Model{
 	public function loginValidate($username = '', $passwd = ''){
 		$user = $this->field(array('id', 'username', 'passwd', 'power'))->where(array('username'=>$username))->find();
 		
-		// dump($passwd);
-		// dump(md5($passwd));die;
 		if($user !== NULL && $user['passwd'] == md5($passwd)){
 			$data['id'] = $user['id'];
 			$data['username'] = $user['username'];
@@ -43,14 +41,12 @@ class UserModel extends Model{
 
 	public function updateUser($data){
 		$data['id'] = session('user')['id'];
-		
 		return $this->save($data);
 	}
 
 	public function addUser($data){
 		$data['passwd'] = md5($data['passwd']);
 		$data['create_date'] = date('Y-m-d H:i:s');
-		// dump($data);die;
 
 		return $this->add($data);
 	}

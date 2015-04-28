@@ -29,7 +29,7 @@
 				<div class="col-xs-12">
 					<label>
 						<span>Event:</span>
-						<select name="eventName" class="form-control" data="{$user.eventName}">
+						<select name="eventName" class="form-control" data="{$user.eventName}" url="{:U('/User/getCatInfo')}">
 							<foreach name="eventName" item="event" key="num">
 								<option value="{$event.id}">{$event.name}</option>
 							</foreach>
@@ -58,7 +58,7 @@
 			</div>
 			<div class="col-xs-6">
 				<span><label>Please tick / check the Yes or No column indicating if you have participants in the following Men or Women category.</label></span>
-				<table class="table table-bordered">
+				<table class="table table-bordered cat-table">
 					<thead>
 						<tr>
 							<th>No.</th>
@@ -71,74 +71,30 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>7</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+						<for start="1" end="8">
+							<tr>
+								<td>{$i}</td>
+								<td class="m-cat cat" num="{$i}"></td>
+								<td>
+									<input type="radio" name="m-choose">
+								</td>
+								<td>
+									<input type="radio" name="m-choose">
+								</td>
+								<td class="f-cat cat" num="{$i}"></td>
+								<td>
+									<input type="radio" name="f-choose">
+								</td>
+								<td>
+									<input type="radio" name="f-choose">
+								</td>
+							</tr>
+						</for>
 					</tbody>
 				</table>
 			</div>
 			<div class="col-xs-12 check-box">
-				<table class="table table-bordered">
+				<table class="table table-bordered team-competition">
 					<tbody>
 						<tr>
 							<td>Team Competition</td>
@@ -151,7 +107,7 @@
 									<input type="radio" value="0" name="men_team">No
 								</label>
 							</td>
-							<td class="woman_team" data="{$user.women_team}">
+							<td class="women_team" data="{$user.women_team}">
 								Women team: 
 								<label class="radio-inline">
 									<input type="radio" value="1" name="women_team">Yes

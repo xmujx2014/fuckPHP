@@ -1,5 +1,5 @@
 <?php
-
+// header("Content-Type:text/html; charset=UTF-8");
 import('ORG.Net.UploadFile');
 
 class UserAction extends Action {
@@ -36,6 +36,7 @@ class UserAction extends Action {
             $this->error("Please Login！");
         }
     }
+
     public function addPerson(){
         if(session('user') != null){
 
@@ -168,6 +169,23 @@ class UserAction extends Action {
             $this->success('Data update success!');
         } else {
             $this->error('Data updata error! Please try again!');
+        }
+    }
+
+    public function getCatInfo(){
+        if(GET){
+            $eventId = $_GET['eventId'];
+            $data['eventId'] = $eventId;
+            $data['m-cat'] = D('Event')->getMCat($eventId);
+            $data['f-cat'] = D('Event')->getFCat($eventId);
+
+            $this->ajaxReturn($data);
+        }
+    }
+
+    public function saveUserCat(){
+        if(POST){
+            
         }
     }
 

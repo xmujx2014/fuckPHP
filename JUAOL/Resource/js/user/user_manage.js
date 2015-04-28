@@ -3,9 +3,47 @@ var PersonModel = Backbone.Model
 var AccountView = Backbone.View.extend({
 	render: function(){
 		$(this.el).html($.tpl['account_info']())
+
+		var fillTable = function(){
+			$.ajax({
+				url: $(".account_info select[name=eventName]").attr('url'),
+				type: 'GET',
+				data: {
+					eventId: $(".account_info select[name=eventName]").val()
+				},
+				success: function(data){
+					$(".cat-table td.m-cat").each(function(){
+						$(this).empty()
+						if(data['m-cat'] != null)
+							$(this).html(data['m-cat'][$(this).attr("num") - 1])
+					})
+					$(".cat-table td.f-cat").each(function(){
+						$(this).empty()
+						if(data['f-cat'] != null)
+							$(this).html(data['f-cat'][$(this).attr("num") - 1])
+					})
+				}
+			},'json')
+		};
+		fillTable()
+
 		$(".account_info select[name=eventName] option").each(function(){
 			if($(this).val() == $(this).parent().attr("data"))
 				$(this).attr("selected", true)
+		})
+		$(".account_info select[name=eventName]").change(function(){
+			fillTable()
+		})
+		$(".team-competition td.men_team").find("input[value=" 
+			+ $(".team-competition td.men_team").attr("data") 
+			+ "]").attr("checked", true)
+		$(".team-competition td.women_team").find("input[value=" 
+			+ $(".team-competition td.women_team").attr("data") 
+			+ "]").attr("checked", true)
+
+		$("form.accountInfo button[type=submit]").click(function(){
+			d("ok")
+			return false
 		})
 	}
 })
@@ -42,17 +80,14 @@ var AddPersonView = Backbone.View.extend({
 						$addPerson.find("input[name=" + tmp + "]").val(data['person'][tmp])
 					}
 					$("select[name=groupe] option").each(function(){
-						// d($(this).val())
 						if($(this).val() == data['person']['groupe'])
 							$(this).attr("selected", "")
 					})
 					$("select[name=gender] option").each(function(){
-						// d($(this).val())
 						if($(this).val() == data['person']['gender'])
 							$(this).attr("selected", "")
 					})
 					$("select[name=category] option").each(function(){
-						// d($(this).val())
 						if($(this).val() == data['person']['category'])
 							$(this).attr("selected", "")
 					})
@@ -63,7 +98,6 @@ var AddPersonView = Backbone.View.extend({
 		}, "json")
 	},
 	showImg: function(){
-		$("div.add_person img[name=img_url]").attr('alt', 'You already choose an image, submit to show it.')
 		$("div.add_person img[name=img_url]").addClass('success')
 	}
 });

@@ -25,7 +25,7 @@ class PersonModel extends Model{
 		return $this->fields;
 	}
 	public function getPersonInfoList($filter = array()){
-		return $this->where($finalFilter)->order('id asc')->select();
+		return $this->where($filter)->order('id asc')->select();
 	}
 	
 	public function getInfoById($id){
