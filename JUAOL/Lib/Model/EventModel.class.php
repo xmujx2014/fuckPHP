@@ -10,6 +10,8 @@ class EventModel extends Model{
 		'mcate',
 		'fcate',
 		'venue',
+		'email',
+		'city',
 		'_autoinc_'=>true,
 		'_pk'=>'id'
 		);

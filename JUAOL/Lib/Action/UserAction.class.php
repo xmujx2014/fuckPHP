@@ -114,6 +114,19 @@ class UserAction extends Action {
             if($tmp != NULL)
                 $data[$attr] = $_POST[$attr];
         }
+        $mcat = '';
+        $fcat = '';
+        for ($i=1; $i < 7; $i++) { 
+            $mcat = $mcat.$_POST['m-choose-'.$i];
+            $fcat = $fcat.$_POST['f-choose-'.$i];
+        }
+        $mcat = $mcat.$_POST['m-choose-7'].';';
+        $fcat = $fcat.$_POST['f-choose-7'];
+
+        $cat = $mcat.$fcat;
+
+        $data['category_info'] = $cat;
+
         if (false !== $user->updateUser($data)) {
             $this->success('Data update success!');
         } else {

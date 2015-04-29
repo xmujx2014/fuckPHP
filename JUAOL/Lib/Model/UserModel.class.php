@@ -19,6 +19,7 @@ class UserModel extends Model{
 		'men_team',
 		'women_team',
 		'create_date',
+		'category_info',
 		'_autoinc_'=>true,
 		'_pk'=>'id'
 		);
@@ -55,6 +56,20 @@ class UserModel extends Model{
 		$user = $this->where(array('id'=>session('user')['id']))->find();
 		unset($user['passwd']);
 		unset($user['power']);
+
+		// $cutCat = strstr($user['category_info'], ';');
+		// dump($cutCat);
+		for ($i=0; $i < 7; $i++) { 
+			$user['cat'][$i + 1]['mcat'] = intval($user['category_info'][$i]);
+			$user['cat'][$i + 1]['fcat'] = intval($user['category_info'][$i + 8]);
+		}
+
+		// $user['mcat'] = substr(',', $cutCat[0]);
+		// $user['fcat'] = substr(',', $cutCat[1]);
+
+		// dump($user);die;
+
+
 		return $user;
 	}
 

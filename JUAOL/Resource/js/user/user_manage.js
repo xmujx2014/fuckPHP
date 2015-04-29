@@ -34,17 +34,26 @@ var AccountView = Backbone.View.extend({
 		$(".account_info select[name=eventName]").change(function(){
 			fillTable()
 		})
+		$(".account_info table.cat-table td.m-cat").each(function(){
+			$(this).parent().find("input[name=m-choose-" 
+				+ $(this).attr("num") 
+				+ "][value="
+				+ $(this).attr("data") 
+				+ "]").attr("checked", true)
+		})
+		$(".account_info table.cat-table td.f-cat").each(function(){
+			$(this).parent().find("input[name=f-choose-" 
+				+ $(this).attr("num") 
+				+ "][value="
+				+ $(this).attr("data") 
+				+ "]").attr("checked", true)
+		})
 		$(".team-competition td.men_team").find("input[value=" 
 			+ $(".team-competition td.men_team").attr("data") 
 			+ "]").attr("checked", true)
 		$(".team-competition td.women_team").find("input[value=" 
 			+ $(".team-competition td.women_team").attr("data") 
 			+ "]").attr("checked", true)
-
-		$("form.accountInfo button[type=submit]").click(function(){
-			d("ok")
-			return false
-		})
 	}
 })
 var AddPersonView = Backbone.View.extend({
@@ -63,6 +72,10 @@ var AddPersonView = Backbone.View.extend({
 			};
 			reader.readAsDataURL(file);
 		})
+		$(".add_person img").height($(".add_person img").width() * 9 / 7)
+		window.onresize = function(){
+			$(".add_person img").height($(".add_person img").width() * 9 / 7)
+		}
 	},
 	chooseImg: function(){
 		$("div.add_person input[type=file]").click()
@@ -158,7 +171,8 @@ var AppRouter = Backbone.Router.extend({
 			el: $("div.main")
 		})
 		addPersonView.render()
-		addPersonView.showPersonInfo(id)
+		if(id != null)
+			addPersonView.showPersonInfo(id)
 	},
 	passwdChange: function(){
 		var passwdChangeView = new PasswdChangeView({

@@ -105,7 +105,8 @@ var AppRouter = Backbone.Router.extend({
 			el: $("div.main")
 		})
 		addEventView.render()
-		addEventView.fillData(id)
+		if(id != null)
+			addEventView.fillData(id)
 	}
 });
 

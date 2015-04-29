@@ -71,25 +71,25 @@
 						</tr>
 					</thead>
 					<tbody>
-						<for start="1" end="8">
+						<foreach name="user.cat" item="detail" key="i">
 							<tr>
 								<td>{$i}</td>
-								<td class="m-cat cat" num="{$i}"></td>
+								<td class="m-cat cat" num="{$i}" data="{$detail.mcat}"></td>
 								<td>
-									<input type="radio" name="m-choose">
+									<input value="1" type="radio" name="m-choose-{$i}">
 								</td>
 								<td>
-									<input type="radio" name="m-choose">
+									<input value="0" type="radio" name="m-choose-{$i}">
 								</td>
-								<td class="f-cat cat" num="{$i}"></td>
+								<td class="f-cat cat" num="{$i}" data="{$detail.fcat}"></td>
 								<td>
-									<input type="radio" name="f-choose">
+									<input value="1" type="radio" name="f-choose-{$i}">
 								</td>
 								<td>
-									<input type="radio" name="f-choose">
+									<input value="0" type="radio" name="f-choose-{$i}">
 								</td>
 							</tr>
-						</for>
+						</foreach>
 					</tbody>
 				</table>
 			</div>
