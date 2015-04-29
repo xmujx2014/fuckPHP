@@ -225,7 +225,7 @@ header a{
 }
 
 table{
-  width: 90%;
+  width: 90% !important;
   margin-left: 5%;
   margin-top: 4%;
 }
