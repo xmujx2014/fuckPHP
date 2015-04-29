@@ -101,25 +101,15 @@ class FormGeneratePdfAction extends Action
     	{
     		$cate = $categories['female'];
     	}
-<<<<<<< HEAD
-=======
     	$categoryInfo = explode(";",$user['category_info']);
     	$categoryInfo['male'] = explode(",",$categoryInfo['0']);
     	$categoryInfo['female'] = explode(",",$categoryInfo['1']);
     	unset($categoryInfo['0']);unset($categoryInfo['1']);
->>>>>>> feature/2015-4-29-pdf-change
     	foreach ($cate as $key => $value) 
     	{
     		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
 			$pdf->Cell(16, 8, ($key+1).".", 1, 0, 'C',false,'', 1);
 			$pdf->Cell(33, 8, $categories['male'][$key], 1, 0, 'C',false,'', 1);
-<<<<<<< HEAD
-			$pdf->Cell(22, 8, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(22, 8, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 8, $categories['female'][$key], 1, 0, 'C',false,'', 1);
-			$pdf->Cell(22, 8, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(22, 8, "", 1, 1, 'C',false,'', 1);
-=======
 			if($categoryInfo['male'][$key]==1)
 			{
 				$pdf->Cell(22, 8, "√", 1, 0, 'C',false,'', 1);
@@ -151,7 +141,6 @@ class FormGeneratePdfAction extends Action
 				$pdf->Cell(22, 8, "", 1, 0, 'C',false,'', 1);
 				$pdf->Cell(22, 8, "", 1, 1, 'C',false,'', 1);
 			}
->>>>>>> feature/2015-4-29-pdf-change
     	}
     	$pdf->SetXY($pdf->GetX()+5,$pdf->GetY()+5);
     	$pdf->Cell(40, 10, " Team Competition", 1, 0, 'L',false,'', 1);
@@ -218,24 +207,6 @@ class FormGeneratePdfAction extends Action
 		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
 		$pdf->Cell(15, 7, "No.", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(23, 7, "Men", 1, 0, 'C',false,'', 1);
-<<<<<<< HEAD
-		$pdf->Cell(33, 7, "First Name", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Last Name", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Date of Birth", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Passport No.", 1, 1, 'C',false,'', 1);
-		$categories = D('Category')->getCategories('male');
-    	foreach ($categories as $key => $value) 
-    	{
-    		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
-			$pdf->Cell(15, 7, ($key+1).".", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(23, 7, $value['weight'].'kg', 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 1, 'C',false,'', 1);
-    	}
-
-=======
 		$pdf->Cell(33, 7, "Family Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Given Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Date of Birth", 1, 0, 'C',false,'', 1);
@@ -261,26 +232,11 @@ class FormGeneratePdfAction extends Action
 			}
     	}
     	$officials = D('Person')->getPersonInfoList($arrayName = array('gender'=>'male'));
->>>>>>> feature/2015-4-29-pdf-change
     	$information = "Officials:";
 		$pdf->SetXY($pdf->GetX(),$pdf->GetY()+3);
 		$pdf->MultiCell(180, 8, $information, 0, 'L', 0, 1, '', '', true);
 		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
 		$pdf->Cell(38, 7, "Position", 1, 0, 'C',false,'', 1);
-<<<<<<< HEAD
-		$pdf->Cell(33, 7, "First Name", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Last Name", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Date of Birth", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Passport No.", 1, 1, 'C',false,'', 1);
-    	for ($key = 0;$key<4;$key++) 
-    	{
-    		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
-			$pdf->Cell(38, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 1, 'C',false,'', 1);
-=======
 		$pdf->Cell(33, 7, "Family Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Given Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Date of Birth", 1, 0, 'C',false,'', 1);
@@ -295,7 +251,6 @@ class FormGeneratePdfAction extends Action
 			$pdf->Cell(33, 7, $value['given_name'], 1, 0, 'C',false,'', 1);
 			$pdf->Cell(33, 7, $value['birth'], 1, 0, 'C',false,'', 1);
 			$pdf->Cell(33, 7, $value['passport_no'], 1, 1, 'C',false,'', 1);
->>>>>>> feature/2015-4-29-pdf-change
     	}
 
 		$pdf->SetFont('droidsansfallback', 'B', 10);
@@ -311,22 +266,6 @@ class FormGeneratePdfAction extends Action
 		$pdf = new TCPDF('Portrait', 'mm', 'A4', true, 'UTF-8', false);
 		$this->addHeader($pdf,"FINAL ENTRY FORM - (WOMEN - INDIVIDUAL)");
 		$pdf->SetFont('droidsansfallback', '', 12);
-<<<<<<< HEAD
-		$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the "." Judo Union Of Asia".". Email:"."abcdef@hotmail.com";
-		$pdf->MultiCell(180, 15, $information, 0, 'L', 0, 1, '', '', true);
-		$pdf->SetFont('droidsansfallback', 'B', 12);
-		$pdf->SetX($pdf->GetX()+5);
-		$pdf->Cell(170, 10, " Federation:", 1, 1, 'L',false,'', 1);
-		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY()+5);
-		$pdf->Cell(51, 10, " Tel:", 1, 0, 'L',false,'', 1);
-		$pdf->Cell(51, 10, " Fax:", 1, 0, 'L',false,'', 1);
-		$pdf->Cell(68, 10, " E-mail:", 1, 1, 'L',false,'', 1);
-		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
-		$pdf->Cell(85, 15, " Number Of Officials:", 1, 0, 'L',false,'', 1);
-		$pdf->Cell(85, 15, " Number Of Competitor:", 1, 1, 'L',false,'', 1);
-		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
-		$pdf->Cell(170, 10, " Address:", 1, 1, 'L',false,'', 1);
-=======
 		if(session('user') != null)
         {
         	$user = D('User')->getCurrentUserInfo();
@@ -347,31 +286,12 @@ class FormGeneratePdfAction extends Action
 		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
 		$pdf->Cell(170, 10, " Address:".$user['adress'], 1, 1, 'L',false,'', 1);
 		
->>>>>>> feature/2015-4-29-pdf-change
 		$information = "Competitors:";
 		$pdf->SetXY($pdf->GetX(),$pdf->GetY()+3);
 		$pdf->MultiCell(180, 8, $information, 0, 'L', 0, 1, '', '', true);
 		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
 		$pdf->Cell(15, 7, "No.", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(23, 7, "Men", 1, 0, 'C',false,'', 1);
-<<<<<<< HEAD
-		$pdf->Cell(33, 7, "First Name", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Last Name", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Date of Birth", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Passport No.", 1, 1, 'C',false,'', 1);
-		$categories = D('Category')->getCategories('female');
-    	foreach ($categories as $key => $value) 
-    	{
-    		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
-			$pdf->Cell(15, 7, ($key+1).".", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(23, 7, $value['weight'].'kg', 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 1, 'C',false,'', 1);
-    	}
-
-=======
 		$pdf->Cell(33, 7, "Family Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Given Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Date of Birth", 1, 0, 'C',false,'', 1);
@@ -397,26 +317,11 @@ class FormGeneratePdfAction extends Action
 			}
     	}
     	$officials = D('Person')->getPersonInfoList($arrayName = array('gender'=>'female'));
->>>>>>> feature/2015-4-29-pdf-change
     	$information = "Officials:";
 		$pdf->SetXY($pdf->GetX(),$pdf->GetY()+3);
 		$pdf->MultiCell(180, 8, $information, 0, 'L', 0, 1, '', '', true);
 		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
 		$pdf->Cell(38, 7, "Position", 1, 0, 'C',false,'', 1);
-<<<<<<< HEAD
-		$pdf->Cell(33, 7, "First Name", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Last Name", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Date of Birth", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(33, 7, "Passport No.", 1, 1, 'C',false,'', 1);
-    	for ($key = 0;$key<4;$key++) 
-    	{
-    		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
-			$pdf->Cell(38, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, "", 1, 1, 'C',false,'', 1);
-=======
 		$pdf->Cell(33, 7, "Family Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Given Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Date of Birth", 1, 0, 'C',false,'', 1);
@@ -431,7 +336,6 @@ class FormGeneratePdfAction extends Action
 			$pdf->Cell(33, 7, $value['given_name'], 1, 0, 'C',false,'', 1);
 			$pdf->Cell(33, 7, $value['birth'], 1, 0, 'C',false,'', 1);
 			$pdf->Cell(33, 7, $value['passport_no'], 1, 1, 'C',false,'', 1);
->>>>>>> feature/2015-4-29-pdf-change
     	}
 
 		$pdf->SetFont('droidsansfallback', 'B', 10);
@@ -454,11 +358,7 @@ class FormGeneratePdfAction extends Action
         }
         foreach ($personInfo as $key => $value) 
         {
-<<<<<<< HEAD
-			$this->addHeader($pdf,"FINAL ENTRY FORM - (WOMEN - INDIVIDUAL)");
-=======
 			$this->addHeader($pdf,"QUESTIONAIRE FOR ALL MEN and WOMEN");
->>>>>>> feature/2015-4-29-pdf-change
 			$pdf->SetFont('droidsansfallback', '', 12);
 			$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:"."abcdef@hotmail.com";
 			$pdf->MultiCell(180, 15, $information, 0, 'L', 0, 1, '', '', true);
@@ -478,11 +378,7 @@ class FormGeneratePdfAction extends Action
 			$pdf->SetFont('droidsansfallback', 'B', 11);
 			$pdf->SetXY($pdf->GetX()+5,$pdf->GetY()+5);
 			$pdf->Cell(20, 10, " Position:", 1, 0, 'L',false,'', 1);
-<<<<<<< HEAD
-			$pdf->Cell(108, 10, " ", 1, 1, 'L',false,'', 1);
-=======
 			$pdf->Cell(108, 10, " ".$value['groupe'], 1, 1, 'L',false,'', 1);
->>>>>>> feature/2015-4-29-pdf-change
 			$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
 			$pdf->Cell(20, 12, " Name:", 1, 0, 'L',false,'', 1);
 			$pdf->MultiCell(54, 12, " Family Name:".$value['family_name'], 1, 'L', 0, 0, '', '', true, 0, false, true, 12, 'T');
