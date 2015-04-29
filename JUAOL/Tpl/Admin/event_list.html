@@ -1,0 +1,28 @@
+<script type="text/html" class="template" id="event_list">
+	<div class="col-md-10 event-list">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Organizer</th>
+					<th>Hosted By</th>
+					<th>Date</th>
+					<th>Venue</th>
+					<th>Edit</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="events" item="event" key="num">
+					<tr data-id="{$event.id}" data-url="{:U('/Event/getEvent')}">
+						<td>{$event.name}</td>
+						<td>{$event.organizer}</td>
+						<td>{$event.hosted_by}</td>
+						<td>{$event.date}</td>
+						<td>{$event.venue}</td>
+						<td><a class="edit" href="javascript:void(0)"><span class="glyphicon glyphicon-edit"></span></a></td>
+					</tr>
+				</foreach>
+			</tbody>
+		</table>
+	</div>
+</script>

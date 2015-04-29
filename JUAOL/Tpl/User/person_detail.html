@@ -1,0 +1,86 @@
+<script id="add_person" class="template" type="text/html">
+	<div class="add_person">
+		<form action="{:U('User/addPerson/')}" enctype="multipart/form-data" method="post" class="personInfo">
+			<div class="col-xs-3">
+				<!-- <form enctype="multipart/form-data" action="{:U('User/upLoadImg')}" type="post"> -->
+					<input type="file" name="img" hidden>
+					<img src="" alt="Click me ..." name="img_url">
+					<!-- <button class="upload">Upload...</button> -->
+				<!-- </form> -->
+			</div>
+		
+			<div class="col-xs-8">
+				<div class="col-xs-6">
+					<label>
+						<span>Team:</span>
+						<input type="text" name='team' class="form-control" disabled="disabled" value="{$user.team}"></label>
+					<label>
+						<span>Family Name:</span>
+						<input type="text" name='family_name' class="form-control"></label>
+					<label>
+						<span>Given Name :</span>
+						<input type="text" name='given_name' class="form-control"></label>
+					
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>Best Result :</span>
+						<input type="text" name='best_result' class="form-control"></label>
+					<label>
+					<label>
+						<span>Passport No. :</span>
+						<input type="text" name='passport_no' class="form-control"></label>
+					<label>
+					<label>
+						<span>Date of Birth :</span>
+						<input type="date" name='birth' class="form-control"></label>
+				</div>
+				<div class="col-xs-12">
+					<div class="col-xs-2">
+						<label>
+							<span>Simple :</span>
+							<input type="text" name='simple_name' class="form-control"></label>
+					</div>
+					<div class="col-xs-10">
+						<div class="col-xs-4">
+							<label>
+								<span>Gender :</span>
+								<select name="gender" class="form-control">
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+								</select>
+							</label>
+						</div>
+						<div class="col-xs-4">
+							<label>
+								<span>Group :</span>
+								<select name="groupe" class="form-control">
+									<foreach name="groupe" item="group" key="num">
+										<option value="{$group}">{$group}</option>
+									</foreach>
+								</select>
+							</label>
+						</div>
+						<div class="col-xs-4">
+							<label>
+								<span>Category :</span>
+								<select name="category" class="form-control">
+									<option disabled="disabled">---Male---</option>
+									<foreach name="mCat" item="cat" key="num">
+										<option value="{$cat}">{$cat}</option>
+									</foreach>
+									<option disabled="disabled">---Femail---</option>
+									<foreach name="fCat" item="cat" key="num">
+										<option value="{$cat}">{$cat}</option>
+									</foreach>
+								</select>
+							</label>
+						</div>
+					</div>
+				</div>
+				<input type="text" name="id" hidden>
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+	</div>
+</script>

@@ -1,0 +1,19 @@
+.event-list{
+	margin-left: 8%;
+	margin-top: 4%;
+}
+.user-confirm{
+	margin-left: 8%;
+	margin-top: 4%;
+}
+.user-confirm a.remove{
+	margin-left: 10%;
+}
+.add-event{
+	margin-left: 25%;
+	margin-top: 2%;
+}
+.add-event button{
+	margin-left: 25%;
+	width: 50%;
+}

@@ -1,0 +1,46 @@
+<script id="add_event" class="template" type="text/html">
+	<div class="add-event col-xs-6">
+		<form action="{:U('Admin/addEvent/')}" method="post" class="addEvent">
+			<!-- <div class=""> -->
+				<div class="col-xs-12">
+					<label>
+						<span>Organizer :</span>
+						<input type="text" name='organizer' class="form-control" value=""></label>
+					<label>
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>Hosted By. :</span>
+						<input type="text" name='hosted_by' class="form-control" value="" placeholder=""></label>
+					<label>
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>Last Date :</span>
+						<input type="text" name='date' class="form-control" value="" placeholder="EX: 13 to 15 May 2015"></label>
+					<label>
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>M-Cate :</span>
+						<input type="text" name='mcate' class="form-control" value="" placeholder="EX: -60kg,-66kg,-73kg,-81kg,-90kg,-100kg,+100kg"></label>
+					<label>
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>F-Cate:</span>
+						<input type="text" name='fcate' class="form-control" value="" placeholder="EX: -48kg,-52kg,-57kg,-63kg,-70kg,-78kg,+78kg"></label>
+					</label>
+				</div>
+				<div class="col-xs-12">
+					<label>
+						<span>Venue:</span>
+						<input type="text" name='venue' class="form-control" value=""></label>
+					</label>
+				</div>
+				<input type="text" name="id" hidden>
+				<button type="submit">Submit</button>
+			<!-- </div> -->
+		</form>
+	</div>
+</script>

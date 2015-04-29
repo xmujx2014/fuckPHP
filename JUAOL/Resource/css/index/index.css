@@ -1,0 +1,24 @@
+.login_main{
+	padding-top: 15%;
+}
+img.left_img{
+	width: 36%;
+	margin-left: 50%;
+}
+form button[type=submit]{
+	margin-top: 10%;
+	width: 100%;
+}
+label.error{
+	color: red;
+	padding-top: 10%;
+}
+div.register{
+	margin-left: 25%;
+	margin-top: 2%;
+}
+div.register button{
+	margin-left: 25%;
+	width: 50%;
+	margin-top: 0;
+}
