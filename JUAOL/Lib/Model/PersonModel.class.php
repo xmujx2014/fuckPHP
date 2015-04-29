@@ -25,6 +25,7 @@ class PersonModel extends Model{
 		return $this->fields;
 	}
 	public function getPersonInfoList($filter = array()){
+		$filter['team'] = session('user')['team'];
 		return $this->where($filter)->order('id asc')->select();
 	}
 	

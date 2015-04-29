@@ -64,6 +64,7 @@ class UserAction extends Action {
     			$info =  $upload->getUploadFileInfo();
                 $data['img_url'] = C('TMPL_PARSE_STRING')['__PUBLIC__'].'/img/person_img/'.$info[0]['savename'];
     		}
+            $data['team'] = session('user')['team'];  
     		// dump($person->fields);
     		// dump($info[0]['savename']);
     		// $person->create();
@@ -117,8 +118,8 @@ class UserAction extends Action {
         $mcat = '';
         $fcat = '';
         for ($i=1; $i < 7; $i++) { 
-            $mcat = $mcat.$_POST['m-choose-'.$i];
-            $fcat = $fcat.$_POST['f-choose-'.$i];
+            $mcat = $mcat.$_POST['m-choose-'.$i].',';
+            $fcat = $fcat.$_POST['f-choose-'.$i].',';
         }
         $mcat = $mcat.$_POST['m-choose-7'].';';
         $fcat = $fcat.$_POST['f-choose-7'];
