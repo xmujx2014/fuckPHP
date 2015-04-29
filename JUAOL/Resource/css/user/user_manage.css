@@ -19,10 +19,6 @@ form.accountInfo button[type=submit]{
 	width: 50%;
 	margin-left: 25%;
 }
-div.person_info{
-	margin-left: 8%;
-	margin-top: 4%;
-}
 form.personInfo img{
 	font-size: 40px Impact;
 	text-align: center;
