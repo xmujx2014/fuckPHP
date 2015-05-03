@@ -188,7 +188,7 @@ var AppRouter = Backbone.Router.extend({
 		personInfo = new Array('family_name','given_name',
 			'simple_name','identity_num','best_result','number_of_officials',
 			'number_of_competitiors','federation','passport_no',
-			'tel','email','adress','birth')
+			'tel','email','adress','birth','local_name')
 
 		app = new AppRouter()
 		Backbone.history.start()		

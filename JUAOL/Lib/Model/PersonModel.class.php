@@ -18,6 +18,7 @@ class PersonModel extends Model{
 		'birth',
 		'best_result',
 		'passport_no',
+		'local_name',
 		'_autoinc_'=>true,		//自动增长
 		'_pk'=>'id');
 

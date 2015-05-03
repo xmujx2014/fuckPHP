@@ -229,3 +229,6 @@ table{
   margin-left: 5%;
   margin-top: 4%;
 }
+.no-padding{
+  padding: 0 !important;
+}

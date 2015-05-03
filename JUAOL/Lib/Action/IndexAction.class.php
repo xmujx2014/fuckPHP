@@ -26,6 +26,8 @@ class IndexAction extends Action {
         else if ($power == 2) {
             # code...
         }
+        session(null);
+        session('username', $data['username']);
         session('error', true);
     	$this->redirect('Index/index');
     }

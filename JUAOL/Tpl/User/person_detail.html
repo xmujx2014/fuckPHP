@@ -14,12 +14,22 @@
 					<label>
 						<span>Federation:</span>
 						<input type="text" name='team' class="form-control" disabled="disabled" value="{$user.federation}"></label>
+					<div class="col-xs-12 no-padding">
+						<div class="col-xs-6 no-padding">
+							<label>
+								<span>Family Name:</span>
+								<input type="text" name='family_name' class="form-control"></label>
+						</div>
+
+						<div class="col-xs-6 no-padding">
+							<label>
+								<span>Given Name :</span>
+								<input type="text" name='given_name' class="form-control"></label>
+						</div>
+					</div>
 					<label>
-						<span>Family Name:</span>
-						<input type="text" name='family_name' class="form-control"></label>
-					<label>
-						<span>Given Name :</span>
-						<input type="text" name='given_name' class="form-control"></label>
+						<span>Local Name :</span>
+						<input type="text" name='local_name' class="form-control"></label>
 					
 				</div>
 				<div class="col-xs-6">
@@ -36,13 +46,13 @@
 						<input type="date" name='birth' class="form-control"></label>
 				</div>
 				<div class="col-xs-12">
-					<div class="col-xs-2">
+					<div class="col-xs-3">
 						<label>
 							<span>Simple :</span>
 							<input type="text" name='simple_name' class="form-control"></label>
 					</div>
-					<div class="col-xs-10">
-						<div class="col-xs-4">
+					<div class="col-xs-9">
+						<div class="col-xs-6">
 							<label>
 								<span>Gender :</span>
 								<select name="gender" class="form-control">
@@ -51,7 +61,7 @@
 								</select>
 							</label>
 						</div>
-						<div class="col-xs-4">
+						<div class="col-xs-6">
 							<label>
 								<span>Group :</span>
 								<select name="groupe" class="form-control">
@@ -61,7 +71,7 @@
 								</select>
 							</label>
 						</div>
-						<div class="col-xs-4">
+						<!-- <div class="col-xs-4">
 							<label>
 								<span>Category :</span>
 								<select name="category" class="form-control">
@@ -75,7 +85,7 @@
 									</foreach>
 								</select>
 							</label>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<input type="text" name="id" hidden>

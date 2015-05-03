@@ -1,5 +1,5 @@
 .login_main{
-	padding-top: 15%;
+	padding-top: 5%;
 }
 img.left_img{
 	width: 36%;
@@ -21,4 +21,11 @@ div.register button{
 	margin-left: 25%;
 	width: 50%;
 	margin-top: 0;
+}
+
+
+.welcome-info{
+	text-align: center;
+	padding-top: 5%;
+	font-size: 2.5em;
 }
