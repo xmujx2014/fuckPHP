@@ -33,7 +33,7 @@ class FormGeneratePdfAction extends Action
         //设置字标题
         $pdf->SetFont('droidsansfallback', 'B', 18);
         $pdf->SetY(20);
-        $pdf->Cell(0, 10, $activeEvent['venue'].' '.$activeEvent['date'], 0, 1, 'C',false,'', 1);
+        $pdf->Cell(0, 10, $activeEvent['city'].' '.$activeEvent['date'], 0, 1, 'C',false,'', 1);
         $pdf->Image('./JUAOL/Resource/img/logo.png',10,10,23,23);
         $pdf->Line(10,35,200,35);
         $pdf->SetY(40);
@@ -54,7 +54,7 @@ class FormGeneratePdfAction extends Action
         	$user = D('User')->getCurrentUserInfo();
         	$activeEvent = D('Event')->getEventByFilter($arrayName = array('id'=>$user['eventName']));
         }
-        $pdf->Cell(0, 10, $activeEvent['venue'].'  Email；'."abcdef@163.com", 0, 1, 'C');
+        $pdf->Cell(0, 10, $activeEvent['venue'].'  Email；'.$activeEvent['email'], 0, 1, 'C');
         $pdf->SetAutoPageBreak(true, $M_BOTTOM);
         $pdf->SetY($Y);
     }
@@ -68,7 +68,7 @@ class FormGeneratePdfAction extends Action
         	$user = D('User')->getCurrentUserInfo();
         	$activeEvent = D('Event')->getEventByFilter($arrayName = array('id'=>$user['eventName']));
         }
-		$information = "  Please send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:"."abcdef@hotmail.com";
+		$information = "  Please send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:".$activeEvent['email'];
 		$pdf->MultiCell(180, 15, $information, 0, 'L', 0, 1, '', '', true);
 		$pdf->SetFont('droidsansfallback', 'B', 12);
 		$pdf->SetX($pdf->GetX()+5);
@@ -186,7 +186,7 @@ class FormGeneratePdfAction extends Action
         	$user = D('User')->getCurrentUserInfo();
         	$activeEvent = D('Event')->getEventByFilter($arrayName = array('id'=>$user['eventName']));
         }
-		$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:"."abcdef@hotmail.com";
+		$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:".$activeEvent['email'];
 		$pdf->MultiCell(180, 15, $information, 0, 'L', 0, 1, '', '', true);
 		$pdf->SetFont('droidsansfallback', 'B', 12);
 		$pdf->SetX($pdf->GetX()+5);
@@ -271,7 +271,7 @@ class FormGeneratePdfAction extends Action
         	$user = D('User')->getCurrentUserInfo();
         	$activeEvent = D('Event')->getEventByFilter($arrayName = array('id'=>$user['eventName']));
         }
-		$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:"."abcdef@hotmail.com";
+		$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:".$activeEvent['email'];
 		$pdf->MultiCell(180, 15, $information, 0, 'L', 0, 1, '', '', true);
 		$pdf->SetFont('droidsansfallback', 'B', 12);
 		$pdf->SetX($pdf->GetX()+5);
@@ -360,7 +360,7 @@ class FormGeneratePdfAction extends Action
         {
 			$this->addHeader($pdf,"QUESTIONAIRE FOR ALL MEN and WOMEN");
 			$pdf->SetFont('droidsansfallback', '', 12);
-			$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:"."abcdef@hotmail.com";
+			$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:".$activeEvent['email'];
 			$pdf->MultiCell(180, 15, $information, 0, 'L', 0, 1, '', '', true);
 			$pdf->SetFont('droidsansfallback', 'B', 12);
 			$pdf->SetX($pdf->GetX()+5);
