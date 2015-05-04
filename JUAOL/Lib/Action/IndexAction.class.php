@@ -14,6 +14,8 @@ class IndexAction extends Action {
     	$username = $_POST['username'];
     	$passwd = $_POST['passwd'];
 
+        session(null);
+        
     	session(array('name'=>'session_id','expire'=>8888));
         session('username', $username);
 
@@ -26,8 +28,6 @@ class IndexAction extends Action {
         else if ($power == 2) {
             # code...
         }
-        session(null);
-        session('username', $data['username']);
         session('error', true);
     	$this->redirect('Index/index');
     }
