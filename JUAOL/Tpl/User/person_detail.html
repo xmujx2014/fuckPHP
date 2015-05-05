@@ -4,7 +4,7 @@
 			<div class="col-xs-3">
 				<!-- <form enctype="multipart/form-data" action="{:U('User/upLoadImg')}" type="post"> -->
 					<input type="file" name="img" hidden>
-					<img src="" alt="Click me ..." name="img_url">
+					<img src="" alt="Click me to upload picture..." name="img_url">
 					<!-- <button class="upload">Upload...</button> -->
 				<!-- </form> -->
 			</div>
@@ -92,5 +92,15 @@
 				<button type="submit">Submit</button>
 			</div>
 		</form>
+	</div>
+	<div class="photo-condition col-xs-12">
+		<div class="col-xs-3">
+			<img class="img-ex" src="__PUBLIC__/img/imgEX.png">
+		</div>
+		<div class="col-xs-7">
+			<p class="photo-limit">Picture-limit:<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;Only PNG, JPG and GIF allowed.Minimal picture size is 350x450 px(H x W px).
+			Crop can be done here, after submit picture is uploaded.</p>
+		</div>
 	</div>
 </script>

@@ -73,3 +73,14 @@ div.fix-layout img.print:hover{
 	left: -218px;
 	top: -70px;
 }
+
+
+
+img.img-ex{
+	margin-left: 35%;
+	width: 140px;
+}
+p.photo-limit{
+	padding-top: 13%;
+	color: red;
+}
