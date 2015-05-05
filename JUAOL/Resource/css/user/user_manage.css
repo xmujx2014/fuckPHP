@@ -45,3 +45,31 @@ div.account_info table th{
 div.account_info .cat{
 	width: 81px;
 }
+
+.fix-layout{
+	position: fixed;
+	right: 20px;
+	bottom: 5%;
+	z-index: 100;
+}
+.fix-layout img.fixed-img {
+	width: 60px;
+	height: 60px;
+	margin: 5px !important;
+}
+div.fix-layout img.print.print-list{
+	background: url("../../img/list.png");
+	background-size: 100% 100%;
+}
+div.fix-layout img.print.print-card{
+	background: url("../../img/card.png");
+	background-size: 100% 100%;
+}
+div.fix-layout img.print:hover{
+	background: url("../../img/print.png");
+	background-size: 100% 100%;
+}
+.fix-dropdown{
+	left: -218px;
+	top: -70px;
+}
