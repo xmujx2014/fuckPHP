@@ -4,8 +4,8 @@ class IndexAction extends Action {
     public function index(){
         $data['username'] = session('username');
         $data['eventName'] = D('Event')->getEventNames();
-        if(session('error'))
-            $data['error'] = "ERROR: username or password is wrong.";
+        if(session('error') != NULL)
+            $data['error'] = session('error');
         session(null);
         session('username', $data['username']);
     	$this->assign($data)->show();
@@ -26,9 +26,9 @@ class IndexAction extends Action {
     	else if($power == 0)
     		$this->redirect('Admin/index');
         else if ($power == 2) {
-            # code...
+            session('error', 'Please wait admin confirm or connect admin with Email.');
         }
-        session('error', true);
+        session('error', 'ERROR: username or password is wrong.');
     	$this->redirect('Index/index');
     }
 

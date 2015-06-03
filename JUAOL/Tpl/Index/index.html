@@ -13,7 +13,7 @@
 		<header id="header">
 			<h1 class="logo"><a href="#"></a></h1>
 			<div align="right">
-				<a href="#register">Register</a>
+				<a href="#register"><img src="__PUBLIC__/img/header/register.png"></a>
 			</div>
 		</header>
 		<label class="welcome-info">Welcome to JUA Online Register System</label>
@@ -63,10 +63,16 @@
 						<input type="password" name='confirmPasswd' class="form-control" value="" placeholder="same with password"></label>
 					<label>
 				</div>
-				<div class="col-xs-12">
+				<div class="col-xs-6">
 					<label>
 						<span>Federation :</span>
-						<input type="text" name='federation' class="form-control" value="" placeholder="It will be you team name."></label>
+						<input type="text" name='federation' class="form-control" value="" placeholder=""></label>
+					<label>
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>Team :</span>
+						<input type="text" name='team' class="form-control" value="" placeholder="It will be you team name."></label>
 					<label>
 				</div>
 				<div class="col-xs-6">
@@ -81,7 +87,7 @@
 						<input type="text" name='email' class="form-control" value="" placeholder=""></label>
 					</label>
 				</div>
-				<div class="col-xs-12">
+				<div class="col-xs-12" hidden>
 					<label>
 						<span>Event:</span>
 						<select name="eventName" class="form-control" data="{$user.eventName}">

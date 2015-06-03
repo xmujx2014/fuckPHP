@@ -1,11 +1,17 @@
 <script id="account_info" class="template" type="text/html">
 	<div class="account_info">
 		<form action="{:U('User/accountInfo/')}" method="post" class="accountInfo">
-			<div class="col-xs-6">
-				<div class="col-xs-12">
+			<div class="col-xs-6 col-xs-offset-3">
+				<div class="col-xs-6">
 					<label>
 						<span>Federation :</span>
 						<input type="text" name='federation' class="form-control" value="{$user.federation}"></label>
+					</lable>
+				</div>
+				<div class="col-xs-6">
+					<label>
+						<span>Team :</span>
+						<input type="text" name='team' class="form-control" value="{$user.team}"></label>
 					<label>
 				</div>
 				<div class="col-xs-4">
@@ -26,7 +32,7 @@
 						<input type="text" name='fax' class="form-control" value="{$user.fax}"></label>
 					<label>
 				</div>
-				<div class="col-xs-12">
+				<div class="col-xs-12" hidden>
 					<label>
 						<span>Event:</span>
 						<select name="eventName" class="form-control" data="{$user.eventName}" url="{:U('/User/getCatInfo')}">
@@ -55,8 +61,10 @@
 						<input type="text" name='adress' class="form-control" value="{$user.adress}"></label>
 					<label>
 				</div>
+				
+				<button type="submit">Submit</button>
 			</div>
-			<div class="col-xs-6">
+			<div class="col-xs-6" hidden>
 				<span><label>Please tick / check the Yes or No column indicating if you have participants in the following Men or Women category.</label></span>
 				<table class="table table-bordered cat-table">
 					<thead>
@@ -93,7 +101,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="col-xs-12 check-box">
+			<div class="col-xs-12 check-box" hidden>
 				<table class="table table-bordered team-competition">
 					<tbody>
 						<tr>

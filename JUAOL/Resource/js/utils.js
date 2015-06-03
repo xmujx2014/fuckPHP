@@ -6,7 +6,7 @@ var checkInput = function($el){
 	var flag = true;
 	// d($el)
 	$el.find("input.form-control").each(function(){
-		d($(this).val())
+		// d($(this).val())
 		$(this).removeClass("error")
 		if($(this).val() == ""){
 			$(this).addClass("error")

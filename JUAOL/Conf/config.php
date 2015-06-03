@@ -7,10 +7,11 @@ return array(
 	/* 数据库配置 */
     // 'DB_HOST'           => '172.27.1.226', 
     // 'DB_NAME'           => 'juaOL_PHP',
-    'DB_HOST'           => '103.249.252.165', 
+    // 'DB_HOST'           => '103.249.252.165', 
+    'DB_HOST'           => '127.0.0.1', 
     'DB_NAME'           => 'juaOL',
     'DB_USER'           => 'root',
-    'DB_PWD'            => 'jiangxian',
+    'DB_PWD'            => '',
     'DB_PORT'           => '3306',
     'DB_PREFIX'         => 'jua_',
     /*其他配置*/

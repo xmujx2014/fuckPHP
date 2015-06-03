@@ -1,0 +1,141 @@
+<script type="text/html" class="template" id="event_list">
+	<div class="col-md-12 event-list">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Organizer</th>
+					<th>Hosted By</th>
+					<th>Date</th>
+					<th>City</th>
+					<th>Join</th>
+					<th>Remove</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="events" item="event" key="num">
+					<tr data-id="{$event.id}" data-remove="{:U('/User/removeUserEvent')}">
+						<td>{$event.name}</td>
+						<td>{$event.organizer}</td>
+						<td>{$event.hosted_by}</td>
+						<td>{$event.date}</td>
+						<td>{$event.city}</td>
+						<td>
+							<a class="join" href="javascript:void(0)">
+								<button class="btn btn-info" data-join="{$event.join}">Join</button>
+							</a>
+						</td>
+						<td>
+							<a class="remove" href="javascript:void(0)">
+								<button class="btn btn-info" data-join="{$event.join}">Remove</button>
+							</a>
+						</td>
+					</tr>
+				</foreach>
+			</tbody>
+		</table>
+	</div>
+</script>
+<script type="text/html" class="template" id="join_event">
+	<div id="<%= id %>" class="col-md-12 join-event" user-event-info-url="{:U('/User/getUserEventInfo')}">
+		<div class="col-xs-6 col-xs-offset-3">
+			<span><label>Please tick / check the Yes or No column indicating if you have participants in the following Men or Women category.</label></span>
+			<table class="table table-bordered cat-table">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Men</th>
+						<th>Yes</th>
+						<th>No</th>
+						<th>WOMEN</th>
+						<th>Yes</th>
+						<th>No</th>
+					</tr>
+				</thead>
+				<tbody>
+					<for start="0" end="7">
+						<tr>
+							<td>{$i+1}</td>
+							<td class="m-cat cat" num="{$i}"></td>
+							<td>
+								<input value="1" type="radio" name="m-choose-{$i}" checked="true">
+							</td>
+							<td>
+								<input value="0" type="radio" name="m-choose-{$i}">
+							</td>
+							<td class="f-cat cat" num="{$i}"></td>
+							<td>
+								<input value="1" type="radio" name="f-choose-{$i}" checked="checked">
+							</td>
+							<td>
+								<input value="0" type="radio" name="f-choose-{$i}">
+							</td>
+						</tr>
+					</for>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-xs-12 check-box">
+			<table class="table table-bordered team-competition">
+				<tbody>
+					<tr>
+						<td>Team Competition</td>
+						<td class="men_team" data="{$user.men_team}">
+							Men team: 
+							<label class="radio-inline">
+								<input type="radio" value="1" name="men_team">Yes
+							</label>
+							<label class="radio-inline">
+								<input type="radio" value="0" name="men_team" checked="true">No
+							</label>
+						</td>
+						<td class="women_team" data="{$user.women_team}">
+							Women team: 
+							<label class="radio-inline">
+								<input type="radio" value="1" name="women_team">Yes
+							</label>
+							<label class="radio-inline">
+								<input type="radio" value="0" name="women_team" checked="checked">No
+							</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-12 person_info">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th><input type="checkbox"> ALL</th>
+						<th>Role</th>
+						<th></th>
+						<th>Full Name</th>
+						<th>Birth</th>
+						<th>Gender</th>
+						<th>Category</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="personInfo" item="person" key="num">
+						<tr data-id="{$person.id}" data-url="{:U('/User/getInfo')}">
+							<td><input type="checkbox" value="{$person.id}"></td>
+							<td>{$person.groupe}</td>
+							<td><img class="person_img"></img></td>
+							<td>{$person.family_name} {$person.given_name}</td>
+							<td>{$person.birth}</td>
+							<td>{$person.gender}</td>
+							<td>
+								<select class="personCat">
+									<for start="0" end="7">
+										<option value="" class="{$person.gender}-cat-{$i}"></option>
+									</for>
+								</select>
+							</td>
+						</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<button class="btn btn-info" type="submit" data-url="{:U('/User/submitUserEventInfo')}">Submit</button>
+		</div>
+	</div>
+</script>

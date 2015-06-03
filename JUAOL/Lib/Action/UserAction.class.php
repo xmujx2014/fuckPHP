@@ -8,8 +8,8 @@ class UserAction extends Action {
         	$data['personInfo'] = D('Person')->getPersonInfoList();
         	$data['user'] = D('User')->getCurrentUserInfo();
         	$data['groupe'] = array(
-        		'Catering',
         		'Competitor',
+                'Catering',
         		'Judoka',
         		'Coach',
         		'Team-Official',
@@ -26,10 +26,15 @@ class UserAction extends Action {
         		'VVIP',
         		'Head of Organisation'
         		);
-            $data['eventName'] = D('Event')->getEventNames();
-            $data['mCat'] = D('Event')->getMCat($data['user']['eventName']);
-            $data['fCat'] = D('Event')->getFCat($data['user']['eventName']);
-            // dump($data);
+            // $data['eventName'] = D('Event')->getEventNames();
+           
+            $data['events'] = D('Event')->getEventList();
+            foreach ($data['events'] as $key => $value) {
+                // code...
+                $data['events'][$key]['join'] = D('UserEvent')->isExist($value['id']);
+            }
+
+            // dump($data['events']);
         	$this->assign($data)->display('user_main');
         }
         else{
@@ -44,8 +49,8 @@ class UserAction extends Action {
         	$upload->maxSize = 3145728 ;// 设置附件上传大小
     		$upload->allowExts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
 
-    		$upload->savePath = './JUAOL/Resource/img/person_img/';
-    		$upload->saveRule = time().'_'.mt_rand();
+    		$upload->savePath = './PersonImg/';
+            $upload->uploadReplace = true;
 
     		
     		// dump($info);die;
@@ -60,11 +65,14 @@ class UserAction extends Action {
         	if($_POST['id'] != '')
         		$data['id'] = $_POST['id'];
 
+            $data['team'] = session('user')['team'];  
+
+            $upload->saveRule = $data['team'].'_'.$data['family_name'].$data['given_name'];
+
         	if($upload->upload()) {
     			$info =  $upload->getUploadFileInfo();
-                $data['img_url'] = C('TMPL_PARSE_STRING')['__PUBLIC__'].'/img/person_img/'.$info[0]['savename'];
+                $data['img_url'] = '/juaOL/PersonImg/'.$info[0]['savename'];
     		}
-            $data['team'] = session('user')['team'];  
     		// dump($person->fields);
     		// dump($info[0]['savename']);
     		// $person->create();
@@ -134,6 +142,43 @@ class UserAction extends Action {
             $this->error('Data updata error! Please try again!');
         }
     }
+    public function getUserEventInfo(){
+        if(IS_POST){
+            $id = I('id');
+            $data['cat']['mcat'] = D('Event')->getMCat($id);
+            $data['cat']['fcat'] = D('Event')->getFCat($id);
+
+            $userEvent = D('UserEvent')->getInfoById($id);
+            $data['data'] = $userEvent;
+            $this->ajaxReturn($data);
+        }
+    }
+
+    public function submitUserEventInfo(){
+        if(IS_POST){
+            $data['category_info'] = I('category_info');
+            $data['event_id'] = I('event_id');
+            $data['men_team'] = I('men_team');
+            $data['women_team'] = I('women_team');
+            $data['person_ids'] = I('person_ids');
+
+            $returnData = array(
+                'code'=>200,
+                'ret'=>'',
+                'err'=>''
+                );
+            if(D('UserEvent')->isExist($data['event_id'])){
+                $data['id'] = D('UserEvent')->getIdByEventId($data['event_id'])['id'];
+                D('UserEvent')->save($data);
+            }
+            else{
+                D('UserEvent')->addUserEvent($data);
+            }
+            $returnData['ret'] = $data;
+
+            $this->ajaxReturn($returnData);
+        }
+    }
 
     public function passwdChange(){
         $oldPasswd = $_POST['oldPasswd'];
@@ -201,6 +246,17 @@ class UserAction extends Action {
         if(POST){
             
         }
+    }
+
+    public function removePerson(){
+        $id = I('id');
+        $returnData['ret'] = D('Person')->deletePerson($id);
+        $this->ajaxReturn($returnData);
+    }
+    public function removeUserEvent(){
+        $id = I('id');
+        $returnData['ret'] = D('UserEvent')->deleteUserEvent($id);
+        $this->ajaxReturn($returnData);
     }
 
 }

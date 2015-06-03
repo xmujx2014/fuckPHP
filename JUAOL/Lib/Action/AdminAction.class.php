@@ -52,4 +52,24 @@ class AdminAction extends Action {
     		$this->ajaxReturn($ajaxReturnData);
     	}
     }
+    public function removeEvent(){
+        $id = I('id');
+        $returnData['ret'] = D('Event')->removeEvent($id);
+        $this->ajaxReturn($returnData);
+    }
+    public function downloadData(){
+        $id = I('id');
+        $persons = D('UserEvent')->getPersonIds($id);
+        $personData = D('Person')->getPersonForJUA($persons['id']);
+
+        foreach ($personData as $key => $value) {
+            $personData[$key]['category'] = $persons['cat'][$value['id']];
+            unset($personData[$key]['id']);
+        }
+        // $returnData['personData'] = $personData;
+        $filename = 'PersonData/'.D('Event')->getEventName($id)['name'].'-'.date('Y-m-d H:i:s').'.txt';
+        $returnData['name'] = $filename;
+        file_put_contents($filename, serialize($personData));
+        $this->ajaxReturn($returnData);
+    }
 }

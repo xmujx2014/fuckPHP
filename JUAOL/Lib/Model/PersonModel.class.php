@@ -44,12 +44,12 @@ class PersonModel extends Model{
 	public function updatePerson($data)
 	{
 		$data['edit_time'] = date('Y-m-d H:i:s');
-		$this->save($data);
+		return $this->save($data);
 	}
 
-	public function deletePerson($data)
+	public function deletePerson($id)
 	{
-		$this->delete($data['id']);
+		return $this->delete($id);
 	}
 
 	public function getImgUrls(){
@@ -65,5 +65,17 @@ class PersonModel extends Model{
 		return $result;
 	}
 
+	public function getPersonForJUA($ids){
+		return $this->field(array(
+			'id',
+			'team',
+			'family_name',
+			'given_name',
+			'simple_name',
+			'identity_num',
+			'gender',
+			'groupe',
+			))->where(array('id'=>array('IN',$ids)))->select();
+	}
 
 }

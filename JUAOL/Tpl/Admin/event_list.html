@@ -5,21 +5,35 @@
 				<tr>
 					<th>Name</th>
 					<th>Organizer</th>
-					<th>Hosted By</th>
+					<!-- <th>Hosted By</th> -->
 					<th>Date</th>
 					<th>City</th>
+					<th>Total</th>
 					<th>Edit</th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<foreach name="events" item="event" key="num">
-					<tr data-id="{$event.id}" data-url="{:U('/Event/getEvent')}">
+					<tr data-id="{$event.id}" data-url="{:U('/Admin/getEvent')}" data-remove="{:U('/Admin/removeEvent')}" data-download="{:U('/Admin/downloadData')}">
 						<td>{$event.name}</td>
 						<td>{$event.organizer}</td>
-						<td>{$event.hosted_by}</td>
+						<!-- <td>{$event.hosted_by}</td> -->
 						<td>{$event.date}</td>
 						<td>{$event.city}</td>
+						<td>{$event.total}</td>
 						<td><a class="edit" href="javascript:void(0)"><span class="glyphicon glyphicon-edit"></span></a></td>
+						<td>
+							<a class="remove" href="javascript:void(0)">
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+						</td>
+						<td>
+							<a class="download" href="javascript:void(0)">
+								<span class="glyphicon glyphicon-download-alt"></span>
+							</a>
+						</td>
 					</tr>
 				</foreach>
 			</tbody>

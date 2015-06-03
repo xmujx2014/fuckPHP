@@ -25,7 +25,7 @@ var AccountView = Backbone.View.extend({
 				}
 			},'json')
 		};
-		fillTable()
+		// fillTable()
 
 		$(".account_info select[name=eventName] option").each(function(){
 			if($(this).val() == $(this).parent().attr("data"))
@@ -123,6 +123,23 @@ var UserInfo = Backbone.View.extend({
 
 			location.hash = '#addPerson/' + id
 		});
+		$(".person_info table a.remove").click(function(){
+			$tr = $(this).parent().parent()
+			var id = $tr.attr("data-id")
+			var name = $tr.children().eq(2).html()
+
+			if (confirm("Are you sure remove: " + name + "？")) {
+				$.ajax({
+					url: $tr.attr("data-remove"),
+					type: "POST",
+					data: {id: id},
+					success: function(data){
+						$tr.hide()
+					}
+				})
+			}
+			
+		});
 	},
 });
 var PasswdChangeView = Backbone.View.extend({
@@ -146,6 +163,150 @@ var PasswdChangeView = Backbone.View.extend({
 	},
 });
 
+var EventListView = Backbone.View.extend({
+	render: function(){
+		$(this.el).html($.tpl['event_list']())
+		$(".event-list a.join button").each(function(){
+			if($(this).attr("data-join") == 1){
+				$(this).html("Change")
+				$(this).css({
+					"background": "green"
+				})
+			}
+		})
+		$(".event-list a.remove button").each(function(){
+			if($(this).attr("data-join") == 0){
+				$(this).attr("disabled", true)
+			}
+		})
+		$(".event-list a.join").click(function(){
+			id = $(this).parent().parent().attr("data-id")
+			location.hash = "#joinEvent/" + id
+		})
+		$(".event-list table a.remove").click(function(){
+			$tr = $(this).parent().parent()
+			var id = $tr.attr("data-id")
+
+			if (confirm("Are you sure remove？")) {
+				$.ajax({
+					url: $tr.attr("data-remove"),
+					type: "POST",
+					data: {id: id},
+					success: function(data){
+						d(data)
+						// $tr.hide()
+						$(this).find("button").attr("disabled", false)
+						location.reload()
+					}
+				})
+			}
+			
+		});
+	}
+});
+
+var JoinEventView = Backbone.View.extend({
+	events:{
+		"click div.join-event button[type=submit]": "submit",
+		"change div.join-event div.person_info th input[type=checkbox]": "chooseAll"
+	},
+	render: function(id){
+		$(this.el).html($.tpl['join_event']({id: id}))
+		data_url = $(".join-event").attr("user-event-info-url")
+		$.ajax({
+			url: data_url,
+			type: "POST",
+			data: {"id": id},
+			success: function(data){
+				d(data)
+				for(i = 0; i < 7; i++){
+					$(".join-event td.m-cat[num=" + i + "]").html(data['cat']['mcat'][i] + 'kg')
+					$(".join-event td.f-cat[num=" + i + "]").html(data['cat']['fcat'][i] + 'kg')
+
+					$(".join-event select.personCat option.female-cat-" 
+						+ i).html(data['cat']['fcat'][i] + 'kg').val(data['cat']['fcat'][i])
+
+					$(".join-event select.personCat option.male-cat-" 
+						+ i).html(data['cat']['mcat'][i] + 'kg').val(data['cat']['mcat'][i])
+
+					if(data['data'] != null){
+						$(".join-event td input[name=m-choose-" 
+							+ i + "][value=" 
+							+ data['data']['cat'][i]['mcat'] 
+							+ "]").attr("checked", true)
+						$(".join-event td input[name=f-choose-" 
+							+ i + "][value=" 
+							+ data['data']['cat'][i]['fcat'] 
+							+ "]").attr("checked", true)
+						$(".join-event td.men_team input[name=men_team][value=" 
+							+ data['data']['men_team']
+							+ "]").attr("checked", true)
+						$(".join-event td.women_team input[name=women_team][value=" 
+							+ data['data']['women_team']
+							+ "]").attr("checked", true)
+					}
+				}
+				if(data['data'] != null){
+					for(num in data['data']['persons']){
+						$tr = $(".join-event div.person_info tr[data-id=" + data['data']['persons'][num][0] + "]")
+						// d($tr)
+						$tr.find("input[type=checkbox]").attr("checked", true)
+						$tr.find("select.personCat option[value=" + data['data']['persons'][num][1] + "]").attr("selected",true)
+					}
+				}
+
+			}
+		},'json')
+	},
+	submit: function(){
+		event_id = $(".join-event").attr("id")
+		mcat = ''
+		fcat = ''
+		for(i = 0; i < 6; i++){
+			mcat += $("input[name=m-choose-"+ i +"]:checked").val() + ','
+			fcat += $("input[name=f-choose-"+ i +"]:checked").val() + ','
+		}
+		mcat += $("input[name=m-choose-6]:checked").val() + ';'
+		fcat += $("input[name=f-choose-6]:checked").val()
+		catInfo = mcat + fcat
+		men_team = $("input[name=men_team]:checked").val()
+		women_team = $("input[name=women_team]:checked").val()
+		personIds = ''
+		$("div.join-event div.person_info td input[type=checkbox]:checked").each(function(){
+			// if($(this).attr("checked"))
+				personIds += $(this).val() + ':'+ $(this).parent().parent().find("select.personCat").val() + ','
+		})
+
+		data = {
+			event_id: event_id,
+			category_info: catInfo,
+			men_team: men_team,
+			women_team: women_team,
+			person_ids: personIds.substring(0, personIds.length - 1),
+		}
+		url = $("div.join-event button[type=submit]").attr("data-url")
+		// d(data)
+		$.ajax({
+			url: url,
+			data: data,
+			type: "POST",
+			success: function(data){
+				// d(data);
+				location.hash = "#eventList"
+				location.reload()
+			}
+		},'json')
+		d(data)
+	},
+	chooseAll: function(e){
+		flag = e.currentTarget.checked
+		$("div.join-event div.person_info td input[type=checkbox]").each(function(){
+			$(this).attr("checked", flag)
+			// d($(this).checked)
+		})
+	}
+})
+
 var AppRouter = Backbone.Router.extend({
 	routes:{
 		"": "userInfo",
@@ -153,6 +314,8 @@ var AppRouter = Backbone.Router.extend({
 		"addPerson/:id": "addPerson",
 		"accountInfo": "accountInfo",
 		"passwdChange": "passwdChange",
+		"eventList": "eventList",
+		"joinEvent/:id": "joinEvent",
 	},
 	accountInfo: function(){
 		var accountInfoView = new AccountView({
@@ -179,7 +342,19 @@ var AppRouter = Backbone.Router.extend({
 			el: $("div.main")
 		})
 		passwdChangeView.render()
-	}
+	},
+	eventList: function(){
+		var eventListView = new EventListView({
+			el: ($("div.main"))
+		})
+		eventListView.render()
+	},
+	joinEvent: function(id){
+		var joinEventView = new JoinEventView({
+			el: $("div.main")
+		})
+		joinEventView.render(id)
+	},
 });
 
 

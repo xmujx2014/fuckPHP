@@ -22,6 +22,10 @@ class EventModel extends Model{
 	public function getEvents(){
 		return $this->select();
 	}
+	public function removeEvent($id){
+		// dump($id);
+		return $this->delete($id);
+	}
 
 	public function saveEvent($data){
 		$data["mcate"] = $this->changeComma($data["mcate"]);
@@ -51,6 +55,7 @@ class EventModel extends Model{
 		foreach ($events as $key => $value) {
 			$events[$key]['mcate'] = explode(',', $value['mcate']);
 			$events[$key]['fcate'] = explode(',' ,$value['fcate']);
+			$events[$key]['total'] = D('UserEvent')->getCountByEventId($value['id']);
 		}
 		return $events;
 	}
@@ -59,7 +64,9 @@ class EventModel extends Model{
 		return $this->field(array('id' ,'name'))->select();
 	}
 
-
+	public function getEventName($id){
+		return $this->where(array('id', $id))->field(array('id', 'name'))->find();
+	}
 
 	//=====================================
 	//utils function

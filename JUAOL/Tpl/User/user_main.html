@@ -14,15 +14,24 @@
 		<header id="header">
 			<h1 class="logo"><a href="#"></a></h1>
 			<h1>
-				<a href="#accountInfo">AccountInfo</a>
+				<a href="#accountInfo"><img src="__PUBLIC__/img/header/accountinfo.png"></a>
 			</h1>
 			<h1>
-				<a href="#">PersonList</a>
+				<a href="#"><img src="__PUBLIC__/img/header/personList.png"></a>
 			</h1>
 			<h1>
-				<a href="#addPerson">AddPerson</a>
+				<a href="#eventList"><img src="__PUBLIC__/img/header/eventList.png"></a>
 			</h1>
-			<div align="right">
+			<h1>
+				<a href="#addPerson"><img src="__PUBLIC__/img/header/addPerson.png"></a>
+			</h1>
+			<h1>
+				<a href="#passwdChange"><img src="__PUBLIC__/img/header/changePassword.png"></a>
+			</h1>
+			<h1>
+				<a href="{:U('/Index/logout')}"><img src="__PUBLIC__/img/header/logout.png"></a>
+			</h1>
+			<div align="right" hidden>
 				<a href="#passwdChange">{$user.username}</a>
 				<a href="{:U('/Index/logout')}">Logout</a>
 			</div>
@@ -56,6 +65,7 @@
 </body>
 	<include file="person_detail"/>
 	<include file="account_info"/>
+	<include file="event_list"/>
 	<script type="text/html" class="template" id="person_list">
 
 		<div class="col-md-12 person_info">
@@ -68,17 +78,27 @@
 						<th>Birth</th>
 						<th>Gender</th>
 						<th>Edit</th>
+						<th>Remove</th>
 					</tr>
 				</thead>
 				<tbody>
 					<foreach name="personInfo" item="person" key="num">
-						<tr data-id="{$person.id}" data-url="{:U('/User/getInfo')}">
+						<tr data-id="{$person.id}" data-url="{:U('/User/getInfo')}" data-remove="{:U('/User/removePerson')}">
 							<td>{$person.groupe}</td>
 							<td><img class="person_img"></img></td>
 							<td>{$person.family_name} {$person.given_name}</td>
 							<td>{$person.birth}</td>
 							<td>{$person.gender}</td>
-							<td><a class="edit" href="javascript:void(0)"><span class="glyphicon glyphicon-edit"></span></a></td>
+							<td>
+								<a class="edit" href="javascript:void(0)">
+									<span class="glyphicon glyphicon-edit"></span>
+								</a>
+							</td>
+							<td>
+								<a class="remove" href="javascript:void(0)">
+									<span class="glyphicon glyphicon-remove"></span>
+								</a>
+							</td>
 						</tr>
 					</foreach>
 				</tbody>

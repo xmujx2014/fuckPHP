@@ -36,13 +36,13 @@ input[type=file]{
 div.account_info div.check-box{
 	padding-left: 2.6%;
 }
-div.account_info table{
+div.join-event table{
 	text-align: center;
 }
-div.account_info table th{
+div.join-event table th{
 	text-align: center;
 }
-div.account_info .cat{
+div.join-event .cat{
 	width: 81px;
 }
 
@@ -74,8 +74,17 @@ div.fix-layout img.print:hover{
 	top: -70px;
 }
 
-
-
+div.join-event button[type=submit]{
+	width: 50%;
+	margin-left: 25%;
+	margin-bottom: 20%;
+}
+div.event-list a.join button{
+	width: 75px;
+}
+div.event-list a.join button:hover{
+	color: blue;
+}
 img.img-ex{
 	margin-left: 35%;
 	width: 140px;

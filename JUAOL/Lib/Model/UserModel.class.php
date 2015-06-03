@@ -16,21 +16,21 @@ class UserModel extends Model{
 		'federation',
 		'adress',
 		'fax',
-		'men_team',
-		'women_team',
+		// 'men_team',
+		// 'women_team',
 		'create_date',
-		'category_info',
+		// 'category_info',
 		'_autoinc_'=>true,
 		'_pk'=>'id'
 		);
 
 	public function loginValidate($username = '', $passwd = ''){
-		$user = $this->field(array('id', 'username', 'passwd', 'power', 'federation'))->where(array('username'=>$username))->find();
+		$user = $this->field(array('id', 'username', 'passwd', 'power', 'team'))->where(array('username'=>$username))->find();
 		
 		if($user !== NULL && $user['passwd'] == md5($passwd)){
 			$data['id'] = $user['id'];
 			$data['username'] = $user['username'];
-			$data['team'] = $user['federation'];
+			$data['team'] = $user['team'];
 			session('user', $data);
 			return $user['power'];
 		}
@@ -57,16 +57,6 @@ class UserModel extends Model{
 		$user = $this->where(array('id'=>session('user')['id']))->find();
 		unset($user['passwd']);
 		unset($user['power']);
-
-		$cutCat = explode(';', $user['category_info']);
-		$tmp['mcat'] = explode(',', $cutCat[0]);
-		$tmp['fcat'] = explode(',', $cutCat[1]);
-
-		// dump($cutCat);
-		for ($i=0; $i < 7; $i++) { 
-			$user['cat'][$i + 1]['mcat'] = intval($tmp['mcat'][$i]);
-			$user['cat'][$i + 1]['fcat'] = intval($tmp['fcat'][$i]);
-		}
 
 		// dump($user);die;
 		return $user;

@@ -5,6 +5,35 @@ var EventListView = Backbone.View.extend({
 			id = $(this).parent().parent().attr("data-id")
 			location.hash = "#addEvent/" + id
 		})
+		$(".event-list table a.remove").click(function(){
+			$tr = $(this).parent().parent()
+			var id = $tr.attr("data-id")
+			var name = $tr.children().eq(0).html()
+
+			if (confirm("Are you sure remove: " + name + "？")) {
+				$.ajax({
+					url: $tr.attr("data-remove"),
+					type: "POST",
+					data: {id: id},
+					success: function(data){
+						$tr.hide()
+					}
+				})
+			}
+		});
+		$(".event-list table a.download").click(function(){
+			$tr = $(this).parent().parent()
+			var id = $tr.attr("data-id")
+			$.ajax({
+				url: $tr.attr("data-download"),
+				type: "POST",
+				data: {id: id},
+				success: function(data){
+					d(data)
+					// $tr.hide()
+				}
+			})
+		});
 	}
 })
 var PasswdChangeView = Backbone.View.extend({
