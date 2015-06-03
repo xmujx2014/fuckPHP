@@ -28,7 +28,8 @@ class IndexAction extends Action {
         else if ($power == 2) {
             session('error', 'Please wait admin confirm or connect admin with Email.');
         }
-        session('error', 'ERROR: username or password is wrong.');
+        else
+            session('error', 'ERROR: username or password is wrong.');
     	$this->redirect('Index/index');
     }
 
