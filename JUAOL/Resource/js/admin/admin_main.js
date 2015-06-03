@@ -21,19 +21,21 @@ var EventListView = Backbone.View.extend({
 				})
 			}
 		});
-		$(".event-list table a.download").click(function(){
-			$tr = $(this).parent().parent()
-			var id = $tr.attr("data-id")
-			$.ajax({
-				url: $tr.attr("data-download"),
-				type: "POST",
-				data: {id: id},
-				success: function(data){
-					d(data)
-					// $tr.hide()
-				}
-			})
-		});
+		// $(".event-list table a.download").click(function(){
+		// 	$tr = $(this).parent().parent()
+		// 	var id = $tr.attr("data-id")
+		// 	// $.ajax({
+		// 	// 	url: $tr.attr("data-download"),
+		// 	// 	type: "POST",
+		// 	// 	data: {id: id},
+		// 	// 	success: function(data){
+		// 	// 		d(data)
+					
+		// 	// 		// location.href = data.url
+		// 	// 		// $tr.hide()
+		// 	// 	}
+		// 	// })
+		// });
 	}
 })
 var PasswdChangeView = Backbone.View.extend({

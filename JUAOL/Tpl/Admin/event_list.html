@@ -23,16 +23,20 @@
 						<td>{$event.date}</td>
 						<td>{$event.city}</td>
 						<td>{$event.total}</td>
-						<td><a class="edit" href="javascript:void(0)"><span class="glyphicon glyphicon-edit"></span></a></td>
+						<td><a class="edit" href="javascript:void(0)"><button><span class="glyphicon glyphicon-edit"></span></button></a></td>
 						<td>
 							<a class="remove" href="javascript:void(0)">
-								<span class="glyphicon glyphicon-remove"></span>
+								<button><span class="glyphicon glyphicon-remove"></span></button>
 							</a>
 						</td>
 						<td>
-							<a class="download" href="javascript:void(0)">
-								<span class="glyphicon glyphicon-download-alt"></span>
-							</a>
+							<form action="downloadData" method="post">
+								<input type="text" name="id" value="{$event.id}" hidden>
+								 <!-- <a class="download" type="submit" href="javascript:void(0)">
+									<span class="glyphicon glyphicon-download-alt"></span>
+								</a> -->	
+								<button type="submit"><span class="glyphicon glyphicon-download-alt"></span></button>							
+							</form>
 						</td>
 					</tr>
 				</foreach>
