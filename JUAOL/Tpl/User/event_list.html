@@ -10,6 +10,7 @@
 					<th>City</th>
 					<th>Join</th>
 					<th>Remove</th>
+					<th>PDF</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,6 +30,28 @@
 							<a class="remove" href="javascript:void(0)">
 								<button class="btn btn-info" data-join="{$event.join}">Remove</button>
 							</a>
+						</td>
+						<td>
+							<!-- <a class="top-btn" href="#" hidden><img class="fixed-img" src="__PUBLIC__/img/arrow.png"></a>
+							<br>
+							<a class="print-list dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><img class="fixed-img print print-list" src=""></a> -->
+							<button class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);" data-join="{$event.join}">PDF</button>
+							<ul class="event-dropdown dropdown-menu" data-role="dropdown">
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{:U('/FormGeneratePdf/firstEntryFormGeneratePdf')}" target="view_frame"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> First Entry Form</a>
+								</li>
+								<li role="presentation" class="divider"></li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{:U('/FormGeneratePdf/finalEntryFormMenGeneratePdf')}" target="view_frame"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Final Entry Form Men</a>
+								</li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{:U('/FormGeneratePdf/finalEntryFormWomenGeneratePdf')}" target="view_frame"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Final Entry Form Women</a>
+								</li>
+								<li role="presentation" class="divider"></li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{:U('/FormGeneratePdf/questionaireForAllMenOrWomenGeneratePdf')}" target="view_frame"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Questionaire For All</a>
+								</li>
+							</ul>
 						</td>
 					</tr>
 				</foreach>

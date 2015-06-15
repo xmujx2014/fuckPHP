@@ -84,4 +84,8 @@ class UserEventModel extends Model{
 		}
 		return $personIds;
 	}
+	public function getByEventId($eventId)
+	{
+		return $this->where(array('user_id'=>session('user')['id'], 'event_id'=>$eventId))->find();
+	}
 }

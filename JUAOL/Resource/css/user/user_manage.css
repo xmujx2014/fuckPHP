@@ -73,6 +73,9 @@ div.fix-layout img.print:hover{
 	left: -218px;
 	top: -70px;
 }
+.event-dropdown{
+	position: inherit;
+}
 
 div.join-event button[type=submit]{
 	width: 50%;

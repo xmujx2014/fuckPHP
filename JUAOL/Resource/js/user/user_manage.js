@@ -179,6 +179,18 @@ var EventListView = Backbone.View.extend({
 				$(this).attr("disabled", true)
 			}
 		})
+		$(".event-list button.dropdown-toggle").each(function(){
+			if($(this).attr("data-join") == 0){
+				$(this).attr("disabled", true)
+			}
+			else{
+				$tr = $(this).parent().parent()
+				$(this).parent().find("a[role=menuitem]").each(function(){
+					// d($(this).attr('href'))
+					$(this).attr("href", $(this).attr("href") + "?eventId=" + $tr.attr("data-id"))
+				})
+			}
+		})
 		$(".event-list a.join").click(function(){
 			id = $(this).parent().parent().attr("data-id")
 			location.hash = "#joinEvent/" + id

@@ -6,7 +6,7 @@
 Vendor('tcpdf.tcpdf');
 class FormGeneratePdfAction extends Action
 {
-	public function addHeader($pdf,$title)
+	public function addHeader($pdf,$title,$activeEvent)
 	{ 
         $eventModel = D('Event');
         $pdf->SetCreator('iRoll Studio');
@@ -14,7 +14,6 @@ class FormGeneratePdfAction extends Action
         if(session('user') != null)
         {
         	$user = D('User')->getCurrentUserInfo();
-        	$activeEvent = D('Event')->getEventByFilter($arrayName = array('id'=>$user['eventName']));
         }
         $pdf->SetTitle($activeEvent['name']);
         $pdf->SetSubject('Match Information');
@@ -42,7 +41,7 @@ class FormGeneratePdfAction extends Action
         //表头设置结束，设置正文开始位置
         $pdf->SetY(50);
 	}
-	function addFooter($pdf)
+	function addFooter($pdf,$activeEvent)
     {
         $pdf->SetAutoPageBreak(true, 0);
         $pdf->SetFont('droidsansfallback', '', 8);
@@ -52,7 +51,6 @@ class FormGeneratePdfAction extends Action
          if(session('user') != null)
         {
         	$user = D('User')->getCurrentUserInfo();
-        	$activeEvent = D('Event')->getEventByFilter($arrayName = array('id'=>$user['eventName']));
         }
         $pdf->Cell(0, 10, $activeEvent['venue'].'  Email；'.$activeEvent['email'], 0, 1, 'C');
         $pdf->SetAutoPageBreak(true, $M_BOTTOM);
@@ -60,14 +58,16 @@ class FormGeneratePdfAction extends Action
     }
 	public function firstEntryFormGeneratePdf()
 	{
-		$pdf = new TCPDF('Portrait', 'mm', 'A4', true, 'UTF-8', false);
-		$this->addHeader($pdf,"FIRST ENTRY FORM");
-		$pdf->SetFont('droidsansfallback', '', 12);
+		$eventId = $_GET['eventId'];
 		if(session('user') != null)
         {
         	$user = D('User')->getCurrentUserInfo();
-        	$activeEvent = D('Event')->getEventByFilter($arrayName = array('id'=>$user['eventName']));
+        	$activeEvent = D("Event")->getEventByFilter(array('id'=>($eventId+0)));
         }
+		$pdf = new TCPDF('Portrait', 'mm', 'A4', true, 'UTF-8', false);
+		$this->addHeader($pdf,"FIRST ENTRY FORM",$activeEvent);
+		$pdf->SetFont('droidsansfallback', '', 12);
+		
 		$information = "  Please send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:".$activeEvent['email'];
 		$pdf->MultiCell(180, 15, $information, 0, 'L', 0, 1, '', '', true);
 		$pdf->SetFont('droidsansfallback', 'B', 12);
@@ -91,8 +91,9 @@ class FormGeneratePdfAction extends Action
 		$pdf->Cell(33, 10, "WOMEN", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(22, 10, "Yes", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(22, 10, "No", 1, 1, 'C',false,'', 1);
-		$categories['male'] = D('Event')->getMCat($user['eventName']);
-    	$categories['female'] = D('Event')->getFCat($user['eventName']);
+		$categories['male'] = D('Event')->getMCat(($eventId+0));
+    	$categories['female'] = D('Event')->getFCat(($eventId+0));
+    	
     	if(count($categories['male'])>=count($categories['female']))
     	{
     		$cate = $categories['male'];
@@ -101,7 +102,8 @@ class FormGeneratePdfAction extends Action
     	{
     		$cate = $categories['female'];
     	}
-    	$categoryInfo = explode(";",$user['category_info']);
+    	$userEvent = D('UserEvent')->getByEventId($eventId);
+    	$categoryInfo = explode(";",$userEvent['category_info']);
     	$categoryInfo['male'] = explode(",",$categoryInfo['0']);
     	$categoryInfo['female'] = explode(",",$categoryInfo['1']);
     	unset($categoryInfo['0']);unset($categoryInfo['1']);
@@ -144,11 +146,11 @@ class FormGeneratePdfAction extends Action
     	}
     	$pdf->SetXY($pdf->GetX()+5,$pdf->GetY()+5);
     	$pdf->Cell(40, 10, " Team Competition", 1, 0, 'L',false,'', 1);
-    	if($user['men_team']==1)
+    	if($userEvent['men_team']==1)
     	{
 			$pdf->Cell(65, 10, " Men team: Yes ■   No □", 1, 0, 'L',false,'', 1);
 		}
-		else if($user['men_team']==0)
+		else if($userEvent['men_team']==0)
 		{
 			$pdf->Cell(65, 10, " Men team: Yes □   No ■", 1, 0, 'L',false,'', 1);
 		}
@@ -156,11 +158,11 @@ class FormGeneratePdfAction extends Action
 		{
 			$pdf->Cell(65, 10, " Men team: Yes □   No □", 1, 0, 'L',false,'', 1);
 		}
-		if($user['women_team']==1)
+		if($userEvent['women_team']==1)
 		{
 			$pdf->Cell(65, 10, " Women team: Yes ■   No □", 1, 1, 'L',false,'', 1);
 		}
-		else if($user['women_team']==0)
+		else if($userEvent['women_team']==0)
 		{
 			$pdf->Cell(65, 10, " Women team: Yes □   No ■", 1, 1, 'L',false,'', 1);
 		}
@@ -172,20 +174,22 @@ class FormGeneratePdfAction extends Action
 		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY()+10);
 		$pdf->MultiCell(85, 40, "Presidents Signature & Date", 1, 'L', 0, 0, '', '', true, 0, false, true, 40, 'B');
 		$pdf->MultiCell(85, 40, "Federation / Association Official Stamp", 1, 'L', 0, 1, '', '', true, 0, false, true, 40, 'B');
-		$this->addFooter($pdf);
+		$this->addFooter($pdf,$activeEvent);
 		$pdf->Output('FirstEntryForm.pdf', "I");
 	}
 
 	public function finalEntryFormMenGeneratePdf()
 	{
-		$pdf = new TCPDF('Portrait', 'mm', 'A4', true, 'UTF-8', false);
-		$this->addHeader($pdf,"FINAL ENTRY FORM - (MEN - INDIVIDUAL)");
-		$pdf->SetFont('droidsansfallback', '', 12);
+		$eventId = $_GET['eventId'];
 		if(session('user') != null)
         {
         	$user = D('User')->getCurrentUserInfo();
-        	$activeEvent = D('Event')->getEventByFilter($arrayName = array('id'=>$user['eventName']));
+        	$activeEvent = D("Event")->getEventByFilter(array('id'=>($eventId+0)));
         }
+		$pdf = new TCPDF('Portrait', 'mm', 'A4', true, 'UTF-8', false);
+		$this->addHeader($pdf,"FINAL ENTRY FORM - (MEN - INDIVIDUAL)",$activeEvent);
+		$pdf->SetFont('droidsansfallback', '', 12);
+		
 		$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:".$activeEvent['email'];
 		$pdf->MultiCell(180, 15, $information, 0, 'L', 0, 1, '', '', true);
 		$pdf->SetFont('droidsansfallback', 'B', 12);
@@ -211,27 +215,47 @@ class FormGeneratePdfAction extends Action
 		$pdf->Cell(33, 7, "Given Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Date of Birth", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Passport No.", 1, 1, 'C',false,'', 1);
-		$categories = D('Event')->getMCat($user['eventName']);
-		$competitors = D('Person')->getPersonInfoList($arrayName = array('groupe' => 'Competitor','gender'=>'male'));
+		$categories = D('Event')->getMCat(($eventId+0));
+		$competitorId = D('UserEvent')->getInfoById($eventId)['persons'];
+		foreach ($competitorId as $key => $value) 
+		{
+			$competitor = D('Person')->getInfoById($value[0]);
+			if($competitor['groupe']!='Competitor'||$competitor['gender']!='male')
+			{
+				unset($competitorId[$key]);
+				continue;
+			}
+			$competitorId[$key][0]=$competitor;
+		}
 		$i = 1;
     	foreach ($categories as $key => $value) 
     	{
-    		foreach($competitors as $key1 =>$value1)
+    		foreach($competitorId as $key1 =>$value1)
     		{
-    			if($value1['category'] == $value)
+    			if($value1['1'] == $value)
     			{
 		    		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
 					$pdf->Cell(15, 7, $i.".", 1, 0, 'C',false,'', 1);
-					$pdf->Cell(23, 7, $value, 1, 0, 'C',false,'', 1);
-					$pdf->Cell(33, 7, $value1['family_name'], 1, 0, 'C',false,'', 1);
-					$pdf->Cell(33, 7, $value1['given_name'], 1, 0, 'C',false,'', 1);
-					$pdf->Cell(33, 7, $value1['birth'], 1, 0, 'C',false,'', 1);
-					$pdf->Cell(33, 7, $value1['passport_no'], 1, 1, 'C',false,'', 1);
+					$pdf->Cell(23, 7, $value.'KG', 1, 0, 'C',false,'', 1);
+					$pdf->Cell(33, 7, $value1[0]['family_name'], 1, 0, 'C',false,'', 1);
+					$pdf->Cell(33, 7, $value1[0]['given_name'], 1, 0, 'C',false,'', 1);
+					$pdf->Cell(33, 7, $value1[0]['birth'], 1, 0, 'C',false,'', 1);
+					$pdf->Cell(33, 7, $value1[0]['passport_no'], 1, 1, 'C',false,'', 1);
 					$i++;
 				}
 			}
     	}
-    	$officials = D('Person')->getPersonInfoList($arrayName = array('gender'=>'male'));
+    	$officials = D('UserEvent')->getInfoById($eventId)['persons'];
+		foreach ($officials as $key => $value) 
+		{
+			$official = D('Person')->getInfoById($value[0]);
+			if($official['groupe']=='Competitor'||$official['gender']!='male')
+			{
+				unset($officials[$key]);
+				continue;
+			}
+			$officials[$key][0]=$official;
+		}
     	$information = "Officials:";
 		$pdf->SetXY($pdf->GetX(),$pdf->GetY()+3);
 		$pdf->MultiCell(180, 8, $information, 0, 'L', 0, 1, '', '', true);
@@ -246,31 +270,33 @@ class FormGeneratePdfAction extends Action
     		if($value['groupe'] == 'Competitor')
     			continue;
     		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
-			$pdf->Cell(38, 7, $value['groupe'], 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, $value['family_name'], 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, $value['given_name'], 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, $value['birth'], 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, $value['passport_no'], 1, 1, 'C',false,'', 1);
+			$pdf->Cell(38, 7, $value[0]['groupe'], 1, 0, 'C',false,'', 1);
+			$pdf->Cell(33, 7, $value[0]['family_name'], 1, 0, 'C',false,'', 1);
+			$pdf->Cell(33, 7, $value[0]['given_name'], 1, 0, 'C',false,'', 1);
+			$pdf->Cell(33, 7, $value[0]['birth'], 1, 0, 'C',false,'', 1);
+			$pdf->Cell(33, 7, $value[0]['passport_no'], 1, 1, 'C',false,'', 1);
     	}
 
 		$pdf->SetFont('droidsansfallback', 'B', 10);
 		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY()+10);
 		$pdf->MultiCell(85, 30, "Presidents Signature & Date", 1, 'L', 0, 0, '', '', true, 0, false, true, 30, 'B');
 		$pdf->MultiCell(85, 30, "Federation / Association Official Stamp", 1, 'L', 0, 1, '', '', true, 0, false, true, 30, 'B');
-		$this->addFooter($pdf);
+		$this->addFooter($pdf,$activeEvent);
 		$pdf->Output('FinalEntryMenForm.pdf', "I");
 	}
 
 	public function finalEntryFormWomenGeneratePdf()
 	{
-		$pdf = new TCPDF('Portrait', 'mm', 'A4', true, 'UTF-8', false);
-		$this->addHeader($pdf,"FINAL ENTRY FORM - (WOMEN - INDIVIDUAL)");
-		$pdf->SetFont('droidsansfallback', '', 12);
+		$eventId = $_GET['eventId'];
 		if(session('user') != null)
         {
         	$user = D('User')->getCurrentUserInfo();
-        	$activeEvent = D('Event')->getEventByFilter($arrayName = array('id'=>$user['eventName']));
+        	$activeEvent = D("Event")->getEventByFilter(array('id'=>($eventId+0)));
         }
+		$pdf = new TCPDF('Portrait', 'mm', 'A4', true, 'UTF-8', false);
+		$this->addHeader($pdf,"FINAL ENTRY FORM - (WOMEN - INDIVIDUAL)",$activeEvent);
+		$pdf->SetFont('droidsansfallback', '', 12);
+		
 		$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:".$activeEvent['email'];
 		$pdf->MultiCell(180, 15, $information, 0, 'L', 0, 1, '', '', true);
 		$pdf->SetFont('droidsansfallback', 'B', 12);
@@ -291,32 +317,52 @@ class FormGeneratePdfAction extends Action
 		$pdf->MultiCell(180, 8, $information, 0, 'L', 0, 1, '', '', true);
 		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
 		$pdf->Cell(15, 7, "No.", 1, 0, 'C',false,'', 1);
-		$pdf->Cell(23, 7, "Men", 1, 0, 'C',false,'', 1);
+		$pdf->Cell(23, 7, "Women", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Family Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Given Name", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Date of Birth", 1, 0, 'C',false,'', 1);
 		$pdf->Cell(33, 7, "Passport No.", 1, 1, 'C',false,'', 1);
-		$categories = D('Event')->getFCat($user['eventName']);
-		$competitors = D('Person')->getPersonInfoList($arrayName = array('groupe' => 'Competitor','gender'=>'female'));
+		$categories = D('Event')->getFCat(($eventId+0));
+		$competitorId = D('UserEvent')->getInfoById($eventId)['persons'];
+		foreach ($competitorId as $key => $value) 
+		{
+			$competitor = D('Person')->getInfoById($value[0]);
+			if($competitor['groupe']!='Competitor'||$competitor['gender']!='female')
+			{
+				unset($competitorId[$key]);
+				continue;
+			}
+			$competitorId[$key][0]=$competitor;
+		}
 		$i = 1;
     	foreach ($categories as $key => $value) 
     	{
-    		foreach($competitors as $key1 =>$value1)
+    		foreach($competitorId as $key1 =>$value1)
     		{
-    			if($value1['category'] == $value)
+    			if($value1['1'] == $value)
     			{
 		    		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
 					$pdf->Cell(15, 7, $i.".", 1, 0, 'C',false,'', 1);
-					$pdf->Cell(23, 7, $value, 1, 0, 'C',false,'', 1);
-					$pdf->Cell(33, 7, $value1['family_name'], 1, 0, 'C',false,'', 1);
-					$pdf->Cell(33, 7, $value1['given_name'], 1, 0, 'C',false,'', 1);
-					$pdf->Cell(33, 7, $value1['birth'], 1, 0, 'C',false,'', 1);
-					$pdf->Cell(33, 7, $value1['passport_no'], 1, 1, 'C',false,'', 1);
+					$pdf->Cell(23, 7, $value.'KG', 1, 0, 'C',false,'', 1);
+					$pdf->Cell(33, 7, $value1[0]['family_name'], 1, 0, 'C',false,'', 1);
+					$pdf->Cell(33, 7, $value1[0]['given_name'], 1, 0, 'C',false,'', 1);
+					$pdf->Cell(33, 7, $value1[0]['birth'], 1, 0, 'C',false,'', 1);
+					$pdf->Cell(33, 7, $value1[0]['passport_no'], 1, 1, 'C',false,'', 1);
 					$i++;
 				}
 			}
     	}
-    	$officials = D('Person')->getPersonInfoList($arrayName = array('gender'=>'female'));
+    	$officials = D('UserEvent')->getInfoById($eventId)['persons'];
+		foreach ($officials as $key => $value) 
+		{
+			$official = D('Person')->getInfoById($value[0]);
+			if($official['groupe']=='Competitor'||$official['gender']!='female')
+			{
+				unset($officials[$key]);
+				continue;
+			}
+			$officials[$key][0]=$official;
+		}
     	$information = "Officials:";
 		$pdf->SetXY($pdf->GetX(),$pdf->GetY()+3);
 		$pdf->MultiCell(180, 8, $information, 0, 'L', 0, 1, '', '', true);
@@ -331,34 +377,39 @@ class FormGeneratePdfAction extends Action
     		if($value['groupe'] == 'Competitor')
     			continue;
     		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY());
-			$pdf->Cell(38, 7, $value['groupe'], 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, $value['family_name'], 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, $value['given_name'], 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, $value['birth'], 1, 0, 'C',false,'', 1);
-			$pdf->Cell(33, 7, $value['passport_no'], 1, 1, 'C',false,'', 1);
+			$pdf->Cell(38, 7, $value[0]['groupe'], 1, 0, 'C',false,'', 1);
+			$pdf->Cell(33, 7, $value[0]['family_name'], 1, 0, 'C',false,'', 1);
+			$pdf->Cell(33, 7, $value[0]['given_name'], 1, 0, 'C',false,'', 1);
+			$pdf->Cell(33, 7, $value[0]['birth'], 1, 0, 'C',false,'', 1);
+			$pdf->Cell(33, 7, $value[0]['passport_no'], 1, 1, 'C',false,'', 1);
     	}
 
 		$pdf->SetFont('droidsansfallback', 'B', 10);
 		$pdf->SetXY($pdf->GetX()+5,$pdf->GetY()+10);
 		$pdf->MultiCell(85, 30, "Presidents Signature & Date", 1, 'L', 0, 0, '', '', true, 0, false, true, 30, 'B');
 		$pdf->MultiCell(85, 30, "Federation / Association Official Stamp", 1, 'L', 0, 1, '', '', true, 0, false, true, 30, 'B');
-		$this->addFooter($pdf);
+		$this->addFooter($pdf,$activeEvent);
 		$pdf->Output('FinalEntryWomenForm.pdf', "I");
 	}
 
 	public function questionaireForAllMenOrWomenGeneratePdf()
 	{
 		$pdf = new TCPDF('Portrait', 'mm', 'A4', true, 'UTF-8', false);
-		 if(session('user') != null)
-		 {
-        	$personInfo = D('Person')->getPersonInfoList();
-        	$user = D('User')->getCurrentUserInfo();
-        	$activeEvent = D('Event')->getEventByFilter($arrayName = array('id'=>$user['eventName']));
-        	
-        }
-        foreach ($personInfo as $key => $value) 
+		$eventId = $_GET['eventId'];
+		if(session('user') != null)
         {
-			$this->addHeader($pdf,"QUESTIONAIRE FOR ALL MEN and WOMEN");
+        	$user = D('User')->getCurrentUserInfo();
+        	$activeEvent = D("Event")->getEventByFilter(array('id'=>($eventId+0)));
+        }
+        $persons = D('UserEvent')->getInfoById($eventId)['persons'];
+		foreach ($persons as $key => $value) 
+		{
+			$person = D('Person')->getInfoById($value[0]);
+			$persons[$key]=$person;
+		}
+        foreach ($persons as $key => $value) 
+        {
+			$this->addHeader($pdf,"QUESTIONAIRE FOR ALL MEN and WOMEN",$activeEvent);
 			$pdf->SetFont('droidsansfallback', '', 12);
 			$information = "  Please fill up all requirements and send this entry form by ".'2015-11-15'." to the office of the ".$activeEvent['hosted_by'].". Email:".$activeEvent['email'];
 			$pdf->MultiCell(180, 15, $information, 0, 'L', 0, 1, '', '', true);
@@ -403,7 +454,7 @@ class FormGeneratePdfAction extends Action
 			$pdf->SetXY($pdf->GetX()+5,$pdf->GetY()+5);
 			$information = " Name of Parent / Guardian:(Print)________________________________________\n\n\n Relationship:____________________________________________\n\n\n Signature:_______________________________________________\n\n\n Date:___________________________________________________";
 			$pdf->MultiCell(170, 70, $information, 1, 'L', 0, 0, '', '', true, 0, false, true, 70, 'M');
-			$this->addFooter($pdf);
+			$this->addFooter($pdf,$activeEvent);
 		}
 		$pdf->Output('QuestionaireForAllMenOrWomen.pdf', "I");
 	}
